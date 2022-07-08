@@ -1,5 +1,6 @@
 package dustw.imi.modernui.gui;
 
+import dustw.imi.client.PacketHelper;
 import dustw.imi.menu.BaseChestMenu;
 import dustw.imi.modernui.button.SlotButton;
 import dustw.imi.modernui.drawable.BackgroundDrawable;
@@ -11,7 +12,9 @@ import icyllis.modernui.view.View;
 import icyllis.modernui.view.ViewGroup;
 import icyllis.modernui.widget.FrameLayout;
 import icyllis.modernui.widget.LinearLayout;
+import net.minecraft.world.inventory.ClickType;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.glfw.GLFW;
 
 import static icyllis.modernui.view.View.dp;
 import static icyllis.modernui.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -62,18 +65,28 @@ public class BaseChestGui extends Fragment {
                 chestSlotsLine4
         };
 
-        for (int i = 0; i < menu.slots.size(); i++) {
+        int slotAmount = menu.slots.size();
+
+        for (int i = 0; i < slotAmount; i++) {
             var index = i / 9;
 
             if (index < lines.length) {
-                var button = new SlotButton(menu.slots.get(i));
                 SlotDrawable slot = new SlotDrawable(menu.slots.get(i));
+                var button = new SlotButton(menu.slots.get(i), slot);
 
-                int size = dp(36);
+                int size = dp(38);
                 var params = new LinearLayout.LayoutParams(size, size);
                 params.setMargins(2, 2, 2, 2);
 
                 button.setBackground(slot);
+
+                int finalI = i;
+                button.setOnClickListener(v -> {
+                    // TODO 快速移动物品（Shift + 左）
+                    PacketHelper.handleInventoryMouseClick(menu.containerId, finalI, GLFW.GLFW_MOUSE_BUTTON_LEFT, ClickType.PICKUP);
+                    button.invalidate();
+                });
+
                 lines[index].addView(button, params);
             }
         }

@@ -64,3 +64,10 @@ mandatory = true
 versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.imi]]
+modId = "millennium"
+mandatory = true
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"

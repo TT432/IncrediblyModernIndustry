@@ -16,9 +16,9 @@ import org.jetbrains.annotations.NotNull;
 @AllArgsConstructor
 public class SlotDrawable extends Drawable {
     final BackgroundDrawable backgroundDrawable = new BackgroundDrawable(4);
-    final int size = View.dp(28);
+    final int size = View.dp(32);
 
-    Slot itemSlot;
+    Slot slot;
 
     @Override
     public void draw(@NotNull Canvas canvas) {
@@ -29,7 +29,7 @@ public class SlotDrawable extends Drawable {
 
         Paint paint = Paint.get();
 
-        CanvasForge.get(canvas).drawItemStack(itemSlot.getItem(),
+        CanvasForge.get(canvas).drawItemStack(slot.getItem(),
                 b.left + b.centerX(),
                 b.top + b.centerY(),
                 size, paint);

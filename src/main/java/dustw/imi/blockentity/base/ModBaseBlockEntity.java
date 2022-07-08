@@ -14,35 +14,72 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import tt432.millennium.utils.json.JsonUtils;
 
+import java.lang.reflect.Type;
+
 /**
  * @author DustW
  **/
-public abstract class ModBaseBlockEntity extends BlockEntity {
+public abstract class ModBaseBlockEntity<SAVE, SYNC> extends BlockEntity {
     public ModBaseBlockEntity(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
         super(pType, pWorldPosition, pBlockState);
     }
 
     @Setter(AccessLevel.PROTECTED)
-    public Object sync;
+    private SYNC sync;
 
     /**
      * 延迟实例化，注册自动同步的对象
      * @return 自动同步的对象
      */
-    protected abstract Object registerSyncObject();
+    protected abstract SYNC registerSyncObject();
 
-    public Object getSync() {
+    public SYNC getSync() {
         return sync == null ? sync = registerSyncObject() : sync;
     }
 
+    @Setter(AccessLevel.PROTECTED)
+    private SAVE save;
+
+    /**
+     * 延迟实例化，注册自动保存的对象
+     * @return 自动保存的对象
+     */
+    protected abstract SAVE registerSaveObject();
+
+    public SAVE getSave() {
+        return save == null ? save = registerSaveObject() : save;
+    }
+
     public static final String SYNC_KEY = "auto_sync_object";
+    public static final String SAVE_KEY = "auto_save_object";
+    public static final String SYNC_SIGN = "sync";
+
+    boolean isSyncTag(CompoundTag tag) {
+        return tag.contains(SYNC_SIGN);
+    }
+
+    CompoundTag setSyncTag(CompoundTag tag) {
+        tag.putBoolean(SYNC_SIGN, true);
+        return tag;
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        var result = super.getUpdateTag();
+
+        if (getSync() != null) {
+            result.putString(SYNC_KEY, JsonUtils.INSTANCE.noExpose.toJson(getSync()));
+        }
+
+        return setSyncTag(result);
+    }
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag tag) {
         super.saveAdditional(tag);
 
-        if (getSync() != null) {
-            tag.putString(SYNC_KEY, JsonUtils.INSTANCE.noExpose.toJson(getSync()));
+        if (getSave() != null) {
+            tag.putString(SAVE_KEY, JsonUtils.INSTANCE.noExpose.toJson(getSave()));
         }
     }
 
@@ -50,8 +87,15 @@ public abstract class ModBaseBlockEntity extends BlockEntity {
     public void load(@NotNull CompoundTag tag) {
         super.load(tag);
 
-        if (tag.contains(SYNC_KEY)) {
-            setSync(JsonUtils.INSTANCE.noExpose.fromJson(tag.getString(SYNC_KEY), getSync().getClass()));
+        if (isSyncTag(tag)) {
+            if (tag.contains(SYNC_KEY)) {
+                setSync(JsonUtils.INSTANCE.noExpose.fromJson(tag.getString(SYNC_KEY), (Type) getSync().getClass()));
+            }
+        }
+        else {
+            if (tag.contains(SAVE_KEY)) {
+                setSave(JsonUtils.INSTANCE.noExpose.fromJson(tag.getString(SAVE_KEY), (Type) getSave().getClass()));
+            }
         }
     }
 
@@ -64,7 +108,9 @@ public abstract class ModBaseBlockEntity extends BlockEntity {
     }
 
     void tick() {
-
+        if (level != null && !level.isClientSide) {
+            sync(level);
+        }
     }
 
     public static <T extends ModBaseBlockEntity> void tick(Level level, BlockPos pos, BlockState state, T t) {

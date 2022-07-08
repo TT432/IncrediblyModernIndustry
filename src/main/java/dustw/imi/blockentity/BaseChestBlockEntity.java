@@ -4,7 +4,6 @@ import dustw.imi.blockentity.base.ModBaseMenuBlockEntity;
 import dustw.imi.blockentity.reg.ModBlockEntities;
 import dustw.imi.menu.BaseChestMenu;
 import lombok.Data;
-import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -17,13 +16,10 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author DustW
  **/
-public class BaseChestBlockEntity extends ModBaseMenuBlockEntity {
+public class BaseChestBlockEntity extends ModBaseMenuBlockEntity<BaseChestBlockEntity.SaveObject, BaseChestBlockEntity.SyncObject> {
     public BaseChestBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(ModBlockEntities.BASE_CHEST.get(), pWorldPosition, pBlockState);
     }
-
-    @Getter
-    private final ItemStackHandler slots = new ItemStackHandler(36);
 
     @Nullable
     @Override
@@ -36,7 +32,17 @@ public class BaseChestBlockEntity extends ModBaseMenuBlockEntity {
     }
 
     @Override
-    protected Object registerSyncObject() {
+    protected SyncObject registerSyncObject() {
         return new SyncObject();
+    }
+
+    @Data
+    public static class SaveObject {
+        private final ItemStackHandler slots = new ItemStackHandler(36);
+    }
+
+    @Override
+    protected SaveObject registerSaveObject() {
+        return new SaveObject();
     }
 }
