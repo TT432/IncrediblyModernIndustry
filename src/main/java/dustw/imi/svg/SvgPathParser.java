@@ -1,9 +1,6 @@
 package dustw.imi.svg;
 
-import icyllis.modernui.math.Point;
 import icyllis.modernui.math.PointF;
-
-import java.util.function.Consumer;
 
 /**
  * TODO 计划：XML 解析器      对接 MC 的资源管理从流内读取 XML 并解析

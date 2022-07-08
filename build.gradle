@@ -151,6 +151,8 @@ repositories {
         name 'ModMaven'
         url 'https://modmaven.dev/'
     }
+
+    mavenLocal()
 }
 
 configurations {
@@ -174,6 +176,11 @@ dependencies {
 
     library "icyllis.modernui:ModernUI-Core:${modernui_version}"
     implementation fg.deobf("icyllis.modernui:ModernUI-Forge:${minecraft_version}-${modernui_version}")
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    implementation fg.deobf("tt432:millennium:1.18.2-1-1")
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
