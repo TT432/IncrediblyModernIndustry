@@ -36,13 +36,23 @@ public class BaseChestBlockEntity extends ModBaseMenuBlockEntity<BaseChestBlockE
         return new SyncObject();
     }
 
+    @Override
+    protected Class<SyncObject> getSyncObjectClass() {
+        return SyncObject.class;
+    }
+
     @Data
     public static class SaveObject {
-        private final ItemStackHandler slots = new ItemStackHandler(36);
+        private ItemStackHandler slots = new ItemStackHandler(36);
     }
 
     @Override
     protected SaveObject registerSaveObject() {
         return new SaveObject();
+    }
+
+    @Override
+    protected Class<SaveObject> getSaveObjectClass() {
+        return SaveObject.class;
     }
 }

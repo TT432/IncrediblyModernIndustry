@@ -51,7 +51,10 @@ public class HoverHandler {
             if (!carried.isEmpty()) {
                 canRenderHovered = false;
 
-                mc.getItemRenderer().renderGuiItem(carried, i, j);
+                mc.getItemRenderer().renderGuiItem(carried, i - 9, j - 9);
+                PoseStack poseStack = new PoseStack();
+                poseStack.translate(0, 0, 500);
+                mc.font.draw(poseStack, String.valueOf(carried.getCount()), i, j, 0xFFFFFFFF);
             }
         }
 

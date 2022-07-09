@@ -6,12 +6,14 @@ import dustw.imi.modernui.button.SlotButton;
 import dustw.imi.modernui.drawable.BackgroundDrawable;
 import dustw.imi.modernui.drawable.SlotDrawable;
 import icyllis.modernui.fragment.Fragment;
+import icyllis.modernui.text.TextPaint;
 import icyllis.modernui.util.DataSet;
 import icyllis.modernui.view.Gravity;
 import icyllis.modernui.view.View;
 import icyllis.modernui.view.ViewGroup;
 import icyllis.modernui.widget.FrameLayout;
 import icyllis.modernui.widget.LinearLayout;
+import icyllis.modernui.widget.TextView;
 import net.minecraft.world.inventory.ClickType;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
@@ -23,6 +25,8 @@ import static icyllis.modernui.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  * @author DustW
  **/
 public class BaseChestGui extends Fragment {
+    final TextPaint paint = new TextPaint();
+
     BaseChestMenu menu;
 
     public BaseChestGui(BaseChestMenu menu) {
@@ -36,6 +40,12 @@ public class BaseChestGui extends Fragment {
 
         var in = new LinearLayout();
         in.setOrientation(LinearLayout.VERTICAL);
+
+        var title = new TextView();
+        title.setText(menu.blockEntity.getDisplayName().getString());
+        title.setTextSize(16);
+        title.setTextColor(0xFF808080);
+        in.addView(title, left(15, 10, 10, 5));
 
         var chestSlots = new LinearLayout();
         chestSlots.setOrientation(LinearLayout.VERTICAL);
@@ -72,11 +82,11 @@ public class BaseChestGui extends Fragment {
 
             if (index < lines.length) {
                 SlotDrawable slot = new SlotDrawable(menu.slots.get(i));
-                var button = new SlotButton(menu.slots.get(i), slot);
+                var button = new SlotButton(menu.slots.get(i), slot, paint);
 
                 int size = dp(38);
                 var params = new LinearLayout.LayoutParams(size, size);
-                params.setMargins(2, 2, 2, 2);
+                params.setMargins(3, 3, 3, 3);
 
                 button.setBackground(slot);
 
@@ -105,9 +115,16 @@ public class BaseChestGui extends Fragment {
         slots.setOrientation(LinearLayout.VERTICAL);
 
         slots.addView(chestSlots, center());
-        slots.addView(playerInventory, center(0, 25, 0, 0));
 
-        in.addView(slots, center(10, 25, 10, 10));
+        var invName = new TextView();
+        invName.setText(menu.inventory.getDisplayName().getString());
+        invName.setTextSize(16);
+        invName.setTextColor(0xFF808080);
+        slots.addView(invName, left(5, 5, 5, 5));
+
+        slots.addView(playerInventory, center(0, 0, 0, 0));
+
+        in.addView(slots, center(10, 0, 10, 10));
 
         BackgroundDrawable background = new BackgroundDrawable();
         in.setBackground(background);
@@ -135,6 +152,12 @@ public class BaseChestGui extends Fragment {
 
     LinearLayout.LayoutParams center(int left, int top, int right, int bottom) {
         var result = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.CENTER);
+        result.setMargins(dp(left), dp(top), dp(right), dp(bottom));
+        return result;
+    }
+
+    LinearLayout.LayoutParams left(int left, int top, int right, int bottom) {
+        var result = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.LEFT);
         result.setMargins(dp(left), dp(top), dp(right), dp(bottom));
         return result;
     }

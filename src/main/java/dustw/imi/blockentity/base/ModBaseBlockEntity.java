@@ -14,8 +14,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import tt432.millennium.utils.json.JsonUtils;
 
-import java.lang.reflect.Type;
-
 /**
  * @author DustW
  **/
@@ -32,6 +30,7 @@ public abstract class ModBaseBlockEntity<SAVE, SYNC> extends BlockEntity {
      * @return 自动同步的对象
      */
     protected abstract SYNC registerSyncObject();
+    protected abstract Class<SYNC> getSyncObjectClass();
 
     public SYNC getSync() {
         return sync == null ? sync = registerSyncObject() : sync;
@@ -45,6 +44,7 @@ public abstract class ModBaseBlockEntity<SAVE, SYNC> extends BlockEntity {
      * @return 自动保存的对象
      */
     protected abstract SAVE registerSaveObject();
+    protected abstract Class<SAVE> getSaveObjectClass();
 
     public SAVE getSave() {
         return save == null ? save = registerSaveObject() : save;
@@ -89,12 +89,12 @@ public abstract class ModBaseBlockEntity<SAVE, SYNC> extends BlockEntity {
 
         if (isSyncTag(tag)) {
             if (tag.contains(SYNC_KEY)) {
-                setSync(JsonUtils.INSTANCE.noExpose.fromJson(tag.getString(SYNC_KEY), (Type) getSync().getClass()));
+                setSync(JsonUtils.INSTANCE.noExpose.fromJson(tag.getString(SYNC_KEY), getSyncObjectClass()));
             }
         }
         else {
             if (tag.contains(SAVE_KEY)) {
-                setSave(JsonUtils.INSTANCE.noExpose.fromJson(tag.getString(SAVE_KEY), (Type) getSave().getClass()));
+                setSave(JsonUtils.INSTANCE.noExpose.fromJson(tag.getString(SAVE_KEY), getSaveObjectClass()));
             }
         }
     }
@@ -107,13 +107,13 @@ public abstract class ModBaseBlockEntity<SAVE, SYNC> extends BlockEntity {
         }
     }
 
-    void tick() {
+    protected void tick() {
         if (level != null && !level.isClientSide) {
             sync(level);
         }
     }
 
-    public static <T extends ModBaseBlockEntity> void tick(Level level, BlockPos pos, BlockState state, T t) {
-        t.tick();
+    public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T t) {
+        ((ModBaseBlockEntity) t).tick();
     }
 }

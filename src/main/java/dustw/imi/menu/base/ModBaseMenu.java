@@ -20,8 +20,8 @@ import java.util.function.Supplier;
  * @author DustW
  **/
 public abstract class ModBaseMenu extends AbstractContainerMenu {
-    protected Inventory inventory;
-    protected IItemHandler invHandler;
+    public final Inventory inventory;
+    public final IItemHandler invHandler;
 
     public ModBaseMenu(MenuType<?> type, int pContainerId, Inventory inventory) {
         super(type, pContainerId);
@@ -102,7 +102,7 @@ public abstract class ModBaseMenu extends AbstractContainerMenu {
 
     protected int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0 ; i < amount ; i++) {
-            addSlot(new SlotItemHandler(handler, index, x, y));
+            addSlot(handler, index, x, y);
             x += dx;
             index++;
         }
