@@ -171,8 +171,8 @@ dependencies {
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
+    //compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    implementation fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
     library "icyllis.modernui:ModernUI-Core:${modernui_version}"
     implementation fg.deobf("icyllis.modernui:ModernUI-Forge:${minecraft_version}-${modernui_version}")

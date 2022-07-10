@@ -5,7 +5,6 @@ import dustw.imi.menu.BaseChestMenu;
 import dustw.imi.modernui.button.SlotButton;
 import dustw.imi.modernui.drawable.BackgroundDrawable;
 import dustw.imi.modernui.drawable.SlotDrawable;
-import icyllis.modernui.fragment.Fragment;
 import icyllis.modernui.text.TextPaint;
 import icyllis.modernui.util.DataSet;
 import icyllis.modernui.view.Gravity;
@@ -24,7 +23,7 @@ import static icyllis.modernui.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 /**
  * @author DustW
  **/
-public class BaseChestGui extends Fragment {
+public class BaseChestGui extends ModFragment {
     final TextPaint paint = new TextPaint();
 
     BaseChestMenu menu;
@@ -134,31 +133,5 @@ public class BaseChestGui extends Fragment {
         content.setLayoutParams(new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.CENTER));
 
         return content;
-    }
-
-    LinearLayout.LayoutParams centerH() {
-        return new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.CENTER_HORIZONTAL);
-    }
-
-    LinearLayout.LayoutParams centerH(int left, int top, int right, int bottom) {
-        var result = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.CENTER_HORIZONTAL);
-        result.setMargins(dp(left), dp(top), dp(right), dp(bottom));
-        return result;
-    }
-
-    LinearLayout.LayoutParams center() {
-        return new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.CENTER);
-    }
-
-    LinearLayout.LayoutParams center(int left, int top, int right, int bottom) {
-        var result = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.CENTER);
-        result.setMargins(dp(left), dp(top), dp(right), dp(bottom));
-        return result;
-    }
-
-    LinearLayout.LayoutParams left(int left, int top, int right, int bottom) {
-        var result = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.LEFT);
-        result.setMargins(dp(left), dp(top), dp(right), dp(bottom));
-        return result;
     }
 }

@@ -5,6 +5,7 @@ import icyllis.modernui.graphics.Paint;
 import icyllis.modernui.graphics.drawable.Drawable;
 import icyllis.modernui.math.Rect;
 import icyllis.modernui.view.View;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -12,10 +13,17 @@ import org.jetbrains.annotations.NotNull;
  **/
 public class BackgroundDrawable extends Drawable {
     final int radius;
-    final int color = 0xFF295E8A;
+    @Getter
+    final int color;
+
+    public BackgroundDrawable(int radius, int color) {
+
+        this.radius = View.dp(radius);
+        this.color = color;
+    }
 
     public BackgroundDrawable(int radius) {
-        this.radius = View.dp(radius);
+        this(radius, 0xFF295E8A);
     }
 
     public BackgroundDrawable() {

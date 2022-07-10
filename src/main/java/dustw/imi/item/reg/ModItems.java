@@ -17,6 +17,8 @@ public class ModItems {
 
     public static final RegistryObject<BlockItem> BASE_CHEST = block(ModBlocks.BASE_CHEST);
 
+    public static final RegistryObject<BlockItem> TECH_TREE_VIEWER = block(ModBlocks.TECH_TREE_VIEWER);
+
     private static Item.Properties base() {
         return new Item.Properties().tab(Imi.TAB);
     }

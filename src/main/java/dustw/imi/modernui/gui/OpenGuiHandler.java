@@ -23,10 +23,20 @@ public class OpenGuiHandler {
 
         if (menu.getType() == ModMenuTypes.BASE_CHEST.get()) {
             BaseChestGui fragment = new BaseChestGui((BaseChestMenu) menu);
-            DataSet args = new DataSet();
-            args.putInt("token", menu.containerId);
-            fragment.setArguments(args);
+            fragment.setArguments(baseDataSet(menu));
             event.set(fragment);
         }
+
+        if (menu.getType() == ModMenuTypes.TECH_TREE_VIEWER.get()) {
+            TechTreeGui fragment = new TechTreeGui();
+            fragment.setArguments(baseDataSet(menu));
+            event.set(fragment);
+        }
+    }
+
+    static DataSet baseDataSet(AbstractContainerMenu menu) {
+        DataSet args = new DataSet();
+        args.putInt("token", menu.containerId);
+        return args;
     }
 }
