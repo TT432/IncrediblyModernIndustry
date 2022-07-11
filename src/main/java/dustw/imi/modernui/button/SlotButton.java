@@ -1,7 +1,6 @@
 package dustw.imi.modernui.button;
 
 import dustw.imi.client.HoverHandler;
-import dustw.imi.modernui.drawable.SlotDrawable;
 import icyllis.modernui.animation.Animator;
 import icyllis.modernui.animation.ObjectAnimator;
 import icyllis.modernui.animation.PropertyValuesHolder;
@@ -9,9 +8,7 @@ import icyllis.modernui.animation.TimeInterpolator;
 import icyllis.modernui.core.Core;
 import icyllis.modernui.graphics.Canvas;
 import icyllis.modernui.graphics.Paint;
-import icyllis.modernui.text.TextPaint;
 import icyllis.modernui.util.IntProperty;
-import icyllis.modernui.view.Gravity;
 import icyllis.modernui.view.View;
 import icyllis.modernui.widget.RadioButton;
 import net.minecraft.world.inventory.Slot;
@@ -42,13 +39,9 @@ public class SlotButton extends RadioButton {
     private final Animator mMinAnim;
 
     Slot slot;
-    SlotDrawable drawable;
-    TextPaint paint;
 
-    public SlotButton(Slot slot, SlotDrawable drawable, TextPaint paint) {
+    public SlotButton(Slot slot) {
         this.slot = slot;
-        this.drawable = drawable;
-        this.paint = paint;
 
         mMagAnim = ObjectAnimator.ofPropertyValuesHolder(this,
                 PropertyValuesHolder.ofInt(ALPHA_PROPERTY, 0, 100));
@@ -66,23 +59,10 @@ public class SlotButton extends RadioButton {
         float stroke = radius * 0.25f;
         float start = stroke * 0.5f;
 
-        var b = drawable.getBounds();
-
         Paint paint = Paint.take();
         paint.setRGBA(255, 255, 255, ALPHA_PROPERTY.get(this));
-        canvas.drawRoundRect(b.left + start, b.top + start, b.right - start, b.bottom - start, radius, paint);
-
-        if (!slot.getItem().isEmpty() && slot.getItem().getCount() > 1) {
-            this.paint.setColor(0xFFFFFFFF);
-            this.paint.setFontSize(32);
-            String amount = String.valueOf(slot.getItem().getCount());
-
-            canvas.drawText(amount, 0, amount.length(),
-                    b.right - dp(2), b.bottom - dp(3),
-                    Gravity.RIGHT, this.paint);
-
-            this.paint.setColor(0);
-        }
+        canvas.drawRoundRect(start, start,
+                getWidth() - start, getHeight() - start, radius, paint);
     }
 
     @Override

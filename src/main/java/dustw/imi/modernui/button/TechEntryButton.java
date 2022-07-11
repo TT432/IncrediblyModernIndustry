@@ -9,6 +9,7 @@ import icyllis.modernui.graphics.Canvas;
 import icyllis.modernui.graphics.Paint;
 import icyllis.modernui.math.PointF;
 import icyllis.modernui.util.IntProperty;
+import icyllis.modernui.view.View;
 import icyllis.modernui.widget.ImageButton;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
@@ -30,19 +31,6 @@ public class TechEntryButton extends ImageButton {
 
     private final Animator mMagAnim;
     private final Animator mMinAnim;
-
-    public static final IntProperty<TechEntryButton> ALPHA_PROPERTY = new IntProperty<>() {
-        @Override
-        public void setValue(@NotNull TechEntryButton object, int value) {
-            object.alpha = value;
-            object.invalidate();
-        }
-
-        @Override
-        public Integer get(@NotNull TechEntryButton object) {
-            return object.alpha;
-        }
-    };
 
     public TechEntryButton() {
         mMagAnim = ObjectAnimator.ofPropertyValuesHolder(this,
@@ -81,26 +69,33 @@ public class TechEntryButton extends ImageButton {
     }
 
     void drawLines(Canvas canvas) {
-        // TODO 修复画线的问题
-
         var b = bounding.getBounds();
         Paint paint = Paint.take();
         paint.setColor(bounding.getColor());
         paint.setStyle(Paint.STROKE);
         paint.setStrokeWidth(dp(2));
 
-        float x = parent.getLeft() - getLeft();
+        int[] selfPos = getLocationInWindow(this);
+        int[] parentPos = getLocationInWindow(parent);
+
 
         PointF selfTop = new PointF(b.centerX(), b.top);
-        float centerDis = parent.getBottom() - getTop();
-        PointF parentBottom = new PointF(x, b.top - centerDis);
-        float centerY = b.top - centerDis / 2;
+        float centerDis = parentPos[1] + parent.bounding.getBounds().bottom - selfPos[1];
+        float parentX = parentPos[0] - selfPos[0] + parent.bounding.getBounds().centerX();
+        PointF parentBottom = new PointF(parentX, b.top + centerDis);
+        float centerY = centerDis / 2;
         PointF selfCenterPoint = new PointF(selfTop.x, centerY);
         PointF parentCenterPoint = new PointF(parentBottom.x, centerY);
 
         drawLine(canvas, selfTop, selfCenterPoint, paint);
         drawLine(canvas, selfCenterPoint, parentCenterPoint, paint);
-        //drawLine(canvas, parentBottom, parentCenterPoint, paint);
+        drawLine(canvas, parentBottom, parentCenterPoint, paint);
+    }
+
+    static int[] getLocationInWindow(View view) {
+        int[] result = new int[]{0, 0};
+        view.getLocationInWindow(result);
+        return result;
     }
 
     void drawLine(Canvas canvas, PointF point1, PointF point2, Paint paint) {
@@ -121,4 +116,17 @@ public class TechEntryButton extends ImageButton {
             mMinAnim.start();
         }
     }
+
+    public static final IntProperty<TechEntryButton> ALPHA_PROPERTY = new IntProperty<>() {
+        @Override
+        public void setValue(@NotNull TechEntryButton object, int value) {
+            object.alpha = value;
+            object.invalidate();
+        }
+
+        @Override
+        public Integer get(@NotNull TechEntryButton object) {
+            return object.alpha;
+        }
+    };
 }

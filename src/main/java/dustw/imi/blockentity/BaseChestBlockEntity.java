@@ -5,10 +5,14 @@ import dustw.imi.blockentity.reg.ModBlockEntities;
 import dustw.imi.menu.BaseChestMenu;
 import lombok.Data;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -54,5 +58,11 @@ public class BaseChestBlockEntity extends ModBaseMenuBlockEntity<BaseChestBlockE
     @Override
     protected Class<SaveObject> getSaveObjectClass() {
         return SaveObject.class;
+    }
+
+    @NotNull
+    @Override
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, LazyOptional.of(() -> getSave().getSlots()));
     }
 }

@@ -5,7 +5,6 @@ import dustw.imi.menu.BaseChestMenu;
 import dustw.imi.modernui.button.SlotButton;
 import dustw.imi.modernui.drawable.BackgroundDrawable;
 import dustw.imi.modernui.drawable.SlotDrawable;
-import icyllis.modernui.text.TextPaint;
 import icyllis.modernui.util.DataSet;
 import icyllis.modernui.view.Gravity;
 import icyllis.modernui.view.View;
@@ -24,8 +23,6 @@ import static icyllis.modernui.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  * @author DustW
  **/
 public class BaseChestGui extends ModFragment {
-    final TextPaint paint = new TextPaint();
-
     BaseChestMenu menu;
 
     public BaseChestGui(BaseChestMenu menu) {
@@ -80,8 +77,8 @@ public class BaseChestGui extends ModFragment {
             var index = i / 9;
 
             if (index < lines.length) {
+                var button = new SlotButton(menu.slots.get(i));
                 SlotDrawable slot = new SlotDrawable(menu.slots.get(i));
-                var button = new SlotButton(menu.slots.get(i), slot, paint);
 
                 int size = dp(38);
                 var params = new LinearLayout.LayoutParams(size, size);
