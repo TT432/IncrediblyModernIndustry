@@ -1,6 +1,6 @@
-package dustw.imi.modernui.button;
+package dustw.imi.modernui.component.button;
 
-import dustw.imi.modernui.drawable.BackgroundDrawable;
+import dustw.imi.modernui.component.drawable.BackgroundDrawable;
 import icyllis.modernui.animation.Animator;
 import icyllis.modernui.animation.ObjectAnimator;
 import icyllis.modernui.animation.PropertyValuesHolder;

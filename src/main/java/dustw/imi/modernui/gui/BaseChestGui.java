@@ -2,9 +2,10 @@ package dustw.imi.modernui.gui;
 
 import dustw.imi.client.PacketHelper;
 import dustw.imi.menu.BaseChestMenu;
-import dustw.imi.modernui.button.SlotButton;
-import dustw.imi.modernui.drawable.BackgroundDrawable;
-import dustw.imi.modernui.drawable.SlotDrawable;
+import dustw.imi.modernui.UiUtils;
+import dustw.imi.modernui.component.button.SlotButton;
+import dustw.imi.modernui.component.drawable.BackgroundDrawable;
+import dustw.imi.modernui.gui.base.ModFragment;
 import icyllis.modernui.util.DataSet;
 import icyllis.modernui.view.Gravity;
 import icyllis.modernui.view.View;
@@ -12,6 +13,7 @@ import icyllis.modernui.view.ViewGroup;
 import icyllis.modernui.widget.FrameLayout;
 import icyllis.modernui.widget.LinearLayout;
 import icyllis.modernui.widget.TextView;
+import lombok.AllArgsConstructor;
 import net.minecraft.world.inventory.ClickType;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
@@ -22,12 +24,9 @@ import static icyllis.modernui.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 /**
  * @author DustW
  **/
+@AllArgsConstructor
 public class BaseChestGui extends ModFragment {
     BaseChestMenu menu;
-
-    public BaseChestGui(BaseChestMenu menu) {
-        this.menu = menu;
-    }
 
     @Nullable
     @Override
@@ -78,13 +77,10 @@ public class BaseChestGui extends ModFragment {
 
             if (index < lines.length) {
                 var button = new SlotButton(menu.slots.get(i));
-                SlotDrawable slot = new SlotDrawable(menu.slots.get(i));
 
                 int size = dp(38);
                 var params = new LinearLayout.LayoutParams(size, size);
                 params.setMargins(3, 3, 3, 3);
-
-                button.setBackground(slot);
 
                 int finalI = i;
                 button.setOnClickListener(v -> {
@@ -112,13 +108,10 @@ public class BaseChestGui extends ModFragment {
 
         slots.addView(chestSlots, center());
 
-        var invName = new TextView();
-        invName.setText(menu.inventory.getDisplayName().getString());
-        invName.setTextSize(16);
-        invName.setTextColor(0xFF808080);
+        var invName = UiUtils.invName(menu.inventory);
         slots.addView(invName, left(5, 5, 5, 5));
 
-        slots.addView(playerInventory, center(0, 0, 0, 0));
+        slots.addView(playerInventory, center());
 
         in.addView(slots, center(10, 0, 10, 10));
 

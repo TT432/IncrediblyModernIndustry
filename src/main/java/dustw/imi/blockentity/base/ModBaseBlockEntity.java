@@ -52,9 +52,10 @@ public abstract class ModBaseBlockEntity<SAVE, SYNC> extends BlockEntity {
 
     public static final String SYNC_KEY = "auto_sync_object";
     public static final String SAVE_KEY = "auto_save_object";
+    public static final String SAVED_SYNC_KEY = "auto_saved_sync_object";
     public static final String SYNC_SIGN = "sync";
 
-    boolean isSyncTag(CompoundTag tag) {
+    protected boolean isSyncTag(CompoundTag tag) {
         return tag.contains(SYNC_SIGN);
     }
 
@@ -81,6 +82,14 @@ public abstract class ModBaseBlockEntity<SAVE, SYNC> extends BlockEntity {
         if (getSave() != null) {
             tag.putString(SAVE_KEY, JsonUtils.INSTANCE.noExpose.toJson(getSave()));
         }
+
+        if (getSync() != null && needSaveSyncObject()) {
+            tag.putString(SAVED_SYNC_KEY, JsonUtils.INSTANCE.noExpose.toJson(getSync()));
+        }
+    }
+
+    protected boolean needSaveSyncObject() {
+        return false;
     }
 
     @Override
@@ -95,6 +104,10 @@ public abstract class ModBaseBlockEntity<SAVE, SYNC> extends BlockEntity {
         else {
             if (tag.contains(SAVE_KEY)) {
                 setSave(JsonUtils.INSTANCE.noExpose.fromJson(tag.getString(SAVE_KEY), getSaveObjectClass()));
+            }
+
+            if (tag.contains(SAVED_SYNC_KEY)) {
+                setSync(JsonUtils.INSTANCE.noExpose.fromJson(tag.getString(SAVED_SYNC_KEY), getSyncObjectClass()));
             }
         }
     }

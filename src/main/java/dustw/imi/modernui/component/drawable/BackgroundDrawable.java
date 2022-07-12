@@ -1,12 +1,14 @@
-package dustw.imi.modernui.drawable;
+package dustw.imi.modernui.component.drawable;
 
 import icyllis.modernui.graphics.Canvas;
 import icyllis.modernui.graphics.Paint;
 import icyllis.modernui.graphics.drawable.Drawable;
 import icyllis.modernui.math.Rect;
-import icyllis.modernui.view.View;
 import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
+
+import static icyllis.modernui.view.View.dp;
 
 /**
  * @author DustW
@@ -14,11 +16,15 @@ import org.jetbrains.annotations.NotNull;
 public class BackgroundDrawable extends Drawable {
     final int radius;
     @Getter
-    final int color;
+    @Setter
+    int color;
+
+    @Setter
+    boolean isArc;
 
     public BackgroundDrawable(int radius, int color) {
 
-        this.radius = View.dp(radius);
+        this.radius = dp(radius);
         this.color = color;
     }
 
@@ -32,17 +38,30 @@ public class BackgroundDrawable extends Drawable {
 
     @Override
     public void draw(@NotNull Canvas canvas) {
-        Rect b = getBounds();
-
         float stroke = radius * 0.25f;
-        float start = stroke * 0.5f;
 
         Paint paint = Paint.take();
         paint.setRGBA(0, 0, 0, 180);
-        canvas.drawRoundRect(b.left + start, b.top + start, b.right - start, b.bottom - start, radius, paint);
+
+        drawShape(canvas, paint);
+
         paint.setStyle(Paint.STROKE);
         paint.setStrokeWidth(stroke);
         paint.setColor(color);
-        canvas.drawRoundRect(b.left + start, b.top + start, b.right - start, b.bottom - start, radius, paint);
+
+        drawShape(canvas, paint);
+    }
+
+    public void drawShape(Canvas canvas, Paint paint) {
+        Rect b = getBounds();
+        float stroke = radius * 0.25f;
+        float start = stroke * 0.5f;
+
+        if (!isArc) {
+            canvas.drawRoundRect(b.left + start, b.top + start, b.right - start, b.bottom - start, radius, paint);
+        }
+        else {
+            canvas.drawArc(b.centerX(), b.centerY(), Math.min(b.centerX(), b.centerY()) - dp(2), 0, 360, paint);
+        }
     }
 }

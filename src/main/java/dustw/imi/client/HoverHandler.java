@@ -3,6 +3,7 @@ package dustw.imi.client;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dustw.imi.menu.BaseChestMenu;
+import dustw.imi.menu.ThermalMenu;
 import icyllis.modernui.textmc.FormattedTextWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
@@ -45,7 +46,7 @@ public class HoverHandler {
 
         boolean canRenderHovered = true;
 
-        if (currentMenu instanceof BaseChestMenu) {
+        if (currentMenu instanceof BaseChestMenu || currentMenu instanceof ThermalMenu) {
             ItemStack carried = currentMenu.getCarried();
 
             if (!carried.isEmpty()) {

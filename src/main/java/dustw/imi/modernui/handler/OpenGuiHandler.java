@@ -1,9 +1,14 @@
-package dustw.imi.modernui.gui;
+package dustw.imi.modernui.handler;
 
 import dustw.imi.Imi;
 import dustw.imi.menu.BaseChestMenu;
+import dustw.imi.menu.ThermalMenu;
 import dustw.imi.menu.reg.ModMenuTypes;
+import dustw.imi.modernui.gui.BaseChestGui;
+import dustw.imi.modernui.gui.TechTreeGui;
+import dustw.imi.modernui.gui.ThermalGui;
 import icyllis.modernui.forge.OpenMenuEvent;
+import icyllis.modernui.fragment.Fragment;
 import icyllis.modernui.util.DataSet;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.api.distmarker.Dist;
@@ -22,16 +27,19 @@ public class OpenGuiHandler {
         AbstractContainerMenu menu = event.getMenu();
 
         if (menu.getType() == ModMenuTypes.BASE_CHEST.get()) {
-            BaseChestGui fragment = new BaseChestGui((BaseChestMenu) menu);
-            fragment.setArguments(baseDataSet(menu));
-            event.set(fragment);
+            event.set(setBaseArguments(new BaseChestGui((BaseChestMenu) menu), menu));
         }
+        else if (menu.getType() == ModMenuTypes.TECH_TREE_VIEWER.get()) {
+            event.set(setBaseArguments(new TechTreeGui(), menu));
+        }
+        else if (menu.getType() == ModMenuTypes.THERMAL.get()) {
+            event.set(setBaseArguments(new ThermalGui((ThermalMenu) menu), menu));
+        }
+    }
 
-        if (menu.getType() == ModMenuTypes.TECH_TREE_VIEWER.get()) {
-            TechTreeGui fragment = new TechTreeGui();
-            fragment.setArguments(baseDataSet(menu));
-            event.set(fragment);
-        }
+    static Fragment setBaseArguments(Fragment fragment, AbstractContainerMenu menu) {
+        fragment.setArguments(baseDataSet(menu));
+        return fragment;
     }
 
     static DataSet baseDataSet(AbstractContainerMenu menu) {

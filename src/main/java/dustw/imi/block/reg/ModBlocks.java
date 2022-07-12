@@ -3,6 +3,7 @@ package dustw.imi.block.reg;
 import dustw.imi.Imi;
 import dustw.imi.block.BaseChestBlock;
 import dustw.imi.block.TechTreeViewer;
+import dustw.imi.block.ThermalBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -21,4 +22,7 @@ public class ModBlocks {
 
     public static final RegistryObject<TechTreeViewer> TECH_TREE_VIEWER = REGISTER.register("tech_tree_viewer",
             () -> new TechTreeViewer(BlockBehaviour.Properties.of(Material.STONE)));
+
+    public static final RegistryObject<ThermalBlock> THERMAL = REGISTER.register("thermal",
+            () -> new ThermalBlock(BlockBehaviour.Properties.of(Material.STONE)));
 }

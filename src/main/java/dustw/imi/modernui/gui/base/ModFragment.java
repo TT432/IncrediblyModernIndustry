@@ -1,4 +1,4 @@
-package dustw.imi.modernui.gui;
+package dustw.imi.modernui.gui.base;
 
 import icyllis.modernui.fragment.Fragment;
 import icyllis.modernui.view.Gravity;
@@ -13,6 +13,12 @@ import static icyllis.modernui.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 public class ModFragment extends Fragment {
     protected LinearLayout.LayoutParams centerH() {
         var result = warp();
+        result.gravity = Gravity.CENTER_HORIZONTAL;
+        return result;
+    }
+
+    protected LinearLayout.LayoutParams centerH(int size) {
+        var result = new LinearLayout.LayoutParams(size, size);
         result.gravity = Gravity.CENTER_HORIZONTAL;
         return result;
     }

@@ -1,8 +1,9 @@
 package dustw.imi.modernui.gui;
 
 import com.mojang.blaze3d.platform.Window;
-import dustw.imi.modernui.button.TechEntryButton;
-import dustw.imi.modernui.drawable.BackgroundDrawable;
+import dustw.imi.modernui.component.button.TechEntryButton;
+import dustw.imi.modernui.component.drawable.BackgroundDrawable;
+import dustw.imi.modernui.gui.base.ModFragment;
 import dustw.imi.techtree.TechEntry;
 import dustw.imi.techtree.TechTreeManager;
 import icyllis.modernui.graphics.drawable.ImageDrawable;

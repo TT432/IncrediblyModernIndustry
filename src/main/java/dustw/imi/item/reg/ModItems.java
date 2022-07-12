@@ -19,6 +19,8 @@ public class ModItems {
 
     public static final RegistryObject<BlockItem> TECH_TREE_VIEWER = block(ModBlocks.TECH_TREE_VIEWER);
 
+    public static final RegistryObject<BlockItem> THERMAL = block(ModBlocks.THERMAL);
+
     private static Item.Properties base() {
         return new Item.Properties().tab(Imi.TAB);
     }
