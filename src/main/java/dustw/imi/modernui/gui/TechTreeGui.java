@@ -3,6 +3,7 @@ package dustw.imi.modernui.gui;
 import com.mojang.blaze3d.platform.Window;
 import dustw.imi.modernui.component.button.TechEntryButton;
 import dustw.imi.modernui.component.drawable.BackgroundDrawable;
+import dustw.imi.modernui.component.view.HorizontalScrollView;
 import dustw.imi.modernui.gui.base.ModFragment;
 import dustw.imi.techtree.TechEntry;
 import dustw.imi.techtree.TechTreeManager;
@@ -80,8 +81,11 @@ public class TechTreeGui extends ModFragment {
         }
 
         {
-            // TODO 不能滚动
             ScrollView right = new ScrollView();
+            right.setVerticalScrollBarEnabled(false);
+
+            HorizontalScrollView in = new HorizontalScrollView();
+            in.setHorizontalScrollBarEnabled(false);
 
             LinearLayout skillTree = new LinearLayout();
             skillTree.setClipChildren(false);
@@ -91,8 +95,9 @@ public class TechTreeGui extends ModFragment {
 
             addTechEntryButton(skillTree, techEntries, null);
 
-            right.addView(skillTree, new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
+            in.addView(skillTree, new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
 
+            right.addView(in, new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
             right.setBackground(new BackgroundDrawable());
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) (width * 0.7 - dp(10 + 10 + 7)), height - dp(20));

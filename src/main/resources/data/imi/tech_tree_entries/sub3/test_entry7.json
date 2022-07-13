@@ -1,0 +1,8 @@
+{
+  "techLevel": "1",
+  "identifier": "imi:test37",
+  "name": "Test37",
+  "prerequisite": "imi:test33",
+  "description": "Test Description",
+  "iconPath": "item/iron_ingot.png"
+}

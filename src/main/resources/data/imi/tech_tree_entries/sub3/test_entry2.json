@@ -1,0 +1,8 @@
+{
+  "techLevel": "0",
+  "identifier": "imi:test32",
+  "name": "Test32",
+  "prerequisite": "imi:test28",
+  "description": "Test Description",
+  "iconPath": "item/iron_sword.png"
+}

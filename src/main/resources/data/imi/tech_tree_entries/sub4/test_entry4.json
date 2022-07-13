@@ -1,0 +1,8 @@
+{
+  "techLevel": "0",
+  "identifier": "imi:test44",
+  "name": "Test44",
+  "prerequisite": "imi:test43",
+  "description": "Test Description",
+  "iconPath": "item/apple.png"
+}
