@@ -83,13 +83,13 @@ public class TechTreeGui extends ModFragment {
         {
             ScrollView right = new ScrollView();
             right.setVerticalScrollBarEnabled(false);
+            right.setPadding(dp(10), dp(10), dp(10), dp(10));
 
             HorizontalScrollView in = new HorizontalScrollView();
             in.setHorizontalScrollBarEnabled(false);
 
             LinearLayout skillTree = new LinearLayout();
             skillTree.setClipChildren(false);
-            skillTree.setPadding(dp(10), dp(10), dp(10), dp(10));
 
             List<TechEntry> techEntries = TechTreeManager.rootEntries();
 
