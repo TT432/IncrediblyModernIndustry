@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "imi:block/tech_tree_viewer"
+    }
+  }
+}

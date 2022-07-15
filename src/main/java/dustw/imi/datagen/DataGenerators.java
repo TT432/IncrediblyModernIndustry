@@ -24,8 +24,8 @@ public class DataGenerators {
             //generator.addProvider(new TutItemTags(generator, blockTags, event.getExistingFileHelper()));
         }
         if (event.includeClient()) {
-            //generator.addProvider(new TutBlockStates(generator, event.getExistingFileHelper()));
-            //generator.addProvider(new TutItemModels(generator, event.getExistingFileHelper()));
+            generator.addProvider(new ModBlockStates(generator, event.getExistingFileHelper()));
+            generator.addProvider(new ModItemModels(generator, event.getExistingFileHelper()));
         }
     }
 }

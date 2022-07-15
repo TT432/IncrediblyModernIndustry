@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "imi:block/base_chest",
+    "bottom": "imi:block/top",
+    "top": "imi:block/top"
+  }
+}

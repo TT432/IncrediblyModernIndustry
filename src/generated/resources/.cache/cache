@@ -1,3 +1,12 @@
+4a49d093a4bd3af06b8d0aab3965d9eac4bdd642 assets/imi/blockstates/base_chest.json
+66275d97f427fc5c631cf6b4f1d8fc1e84707528 assets/imi/blockstates/tech_tree_viewer.json
+2835f41a200042dc5ba5d14facd653ee924c4b13 assets/imi/blockstates/thermal.json
+784052ef1aeb740bacd895152bb527e954a9eb8c assets/imi/models/block/base_chest.json
+1a0fc58d32a1e617dd5389a9d1223cf0e59fa77c assets/imi/models/block/tech_tree_viewer.json
+97ad5679fd1a3b330c11a7db47f6e0cb13879e48 assets/imi/models/block/thermal.json
+9aabba29353ded93bb6f04bc746bfc2065a60668 assets/imi/models/item/base_chest.json
+3683a351d57a5cc8afd820af3ae9b0c5602af414 assets/imi/models/item/tech_tree_viewer.json
+c961a0018614d2bfe7baa2ab15f5de16674be102 assets/imi/models/item/thermal.json
 6655fe8e25d7e08a05440818405ff398b859569c data/imi/loot_tables/blocks/base_chest.json
 0f5f753c21a5e91d61ad987e5cfa611d1bc41074 data/imi/loot_tables/blocks/tech_tree_viewer.json
 687e48bb0911632a564ef94a2dcd6d5ceab93345 data/imi/loot_tables/blocks/thermal.json
