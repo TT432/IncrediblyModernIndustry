@@ -79,10 +79,12 @@ public class SlotButton extends RadioButton {
         paint = Paint.get();
         Rect b = backgroundDrawable.getBounds();
 
-        CanvasForge.get(canvas).drawItemStack(slot.getItem(),
-                b.left + b.centerX(),
-                b.top + b.centerY(),
-                size, paint);
+        if (!slot.getItem().isEmpty() && !slot.getItem().hasFoil()) {
+            CanvasForge.get(canvas).drawItemStack(slot.getItem(),
+                    b.left + b.centerX(),
+                    b.top + b.centerY(),
+                    size, paint);
+        }
 
         if (!slot.getItem().isEmpty() && slot.getItem().getCount() > 1) {
             TextPaint textPaint = new TextPaint();

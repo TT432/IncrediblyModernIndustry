@@ -41,13 +41,16 @@ public abstract class ModBaseBlockEntity extends BlockEntity {
         var result = super.getUpdateTag();
 
         manager.save(result, true, nextForce);
-        result.putBoolean(SYNC_SIGN, true);
 
         if (nextForce) {
             nextForce = false;
         }
 
-        return setSyncTag(result);
+        if (!result.isEmpty()) {
+            setSyncTag(result);
+        }
+
+        return result;
     }
 
     @Override
@@ -79,9 +82,15 @@ public abstract class ModBaseBlockEntity extends BlockEntity {
     }
 
     boolean nextForce;
+    int forceTick;
 
     protected void tick() {
         if (level != null && !level.isClientSide) {
+            if (forceTick++ > 60) {
+                forceTick = 0;
+                nextForce = true;
+            }
+
             sync(level);
         }
     }
