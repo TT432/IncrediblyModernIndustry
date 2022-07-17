@@ -1,7 +1,5 @@
 package dustw.imi.blockentity.base;
 
-import lombok.AccessLevel;
-import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -12,47 +10,21 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-import tt432.millennium.utils.json.JsonUtils;
+import tt432.millennium.sync.SyncDataManager;
 
 /**
  * @author DustW
  **/
-public abstract class ModBaseBlockEntity<SAVE, SYNC> extends BlockEntity {
+public abstract class ModBaseBlockEntity extends BlockEntity {
+    SyncDataManager manager = new SyncDataManager();
+
     public ModBaseBlockEntity(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
         super(pType, pWorldPosition, pBlockState);
+        registerSyncData(manager);
     }
 
-    @Setter(AccessLevel.PROTECTED)
-    private SYNC sync;
+    protected abstract void registerSyncData(SyncDataManager manager);
 
-    /**
-     * 延迟实例化，注册自动同步的对象
-     * @return 自动同步的对象
-     */
-    protected abstract SYNC registerSyncObject();
-    protected abstract Class<SYNC> getSyncObjectClass();
-
-    public SYNC getSync() {
-        return sync == null ? sync = registerSyncObject() : sync;
-    }
-
-    @Setter(AccessLevel.PROTECTED)
-    private SAVE save;
-
-    /**
-     * 延迟实例化，注册自动保存的对象
-     * @return 自动保存的对象
-     */
-    protected abstract SAVE registerSaveObject();
-    protected abstract Class<SAVE> getSaveObjectClass();
-
-    public SAVE getSave() {
-        return save == null ? save = registerSaveObject() : save;
-    }
-
-    public static final String SYNC_KEY = "auto_sync_object";
-    public static final String SAVE_KEY = "auto_save_object";
-    public static final String SAVED_SYNC_KEY = "auto_saved_sync_object";
     public static final String SYNC_SIGN = "sync";
 
     protected boolean isSyncTag(CompoundTag tag) {
@@ -68,8 +40,11 @@ public abstract class ModBaseBlockEntity<SAVE, SYNC> extends BlockEntity {
     public CompoundTag getUpdateTag() {
         var result = super.getUpdateTag();
 
-        if (getSync() != null) {
-            result.putString(SYNC_KEY, JsonUtils.INSTANCE.noExpose.toJson(getSync()));
+        manager.save(result, true, nextForce);
+        result.putBoolean(SYNC_SIGN, true);
+
+        if (nextForce) {
+            nextForce = false;
         }
 
         return setSyncTag(result);
@@ -79,17 +54,7 @@ public abstract class ModBaseBlockEntity<SAVE, SYNC> extends BlockEntity {
     protected void saveAdditional(@NotNull CompoundTag tag) {
         super.saveAdditional(tag);
 
-        if (getSave() != null) {
-            tag.putString(SAVE_KEY, JsonUtils.INSTANCE.noExpose.toJson(getSave()));
-        }
-
-        if (getSync() != null && needSaveSyncObject()) {
-            tag.putString(SAVED_SYNC_KEY, JsonUtils.INSTANCE.noExpose.toJson(getSync()));
-        }
-    }
-
-    protected boolean needSaveSyncObject() {
-        return false;
+        manager.save(tag, false, true);
     }
 
     @Override
@@ -97,18 +62,11 @@ public abstract class ModBaseBlockEntity<SAVE, SYNC> extends BlockEntity {
         super.load(tag);
 
         if (isSyncTag(tag)) {
-            if (tag.contains(SYNC_KEY)) {
-                setSync(JsonUtils.INSTANCE.noExpose.fromJson(tag.getString(SYNC_KEY), getSyncObjectClass()));
-            }
+            manager.load(tag, true);
         }
         else {
-            if (tag.contains(SAVE_KEY)) {
-                setSave(JsonUtils.INSTANCE.noExpose.fromJson(tag.getString(SAVE_KEY), getSaveObjectClass()));
-            }
-
-            if (tag.contains(SAVED_SYNC_KEY)) {
-                setSync(JsonUtils.INSTANCE.noExpose.fromJson(tag.getString(SAVED_SYNC_KEY), getSyncObjectClass()));
-            }
+            manager.load(tag, false);
+            nextForce = true;
         }
     }
 
@@ -119,6 +77,8 @@ public abstract class ModBaseBlockEntity<SAVE, SYNC> extends BlockEntity {
                     .forEach(k -> k.connection.send(p));
         }
     }
+
+    boolean nextForce;
 
     protected void tick() {
         if (level != null && !level.isClientSide) {

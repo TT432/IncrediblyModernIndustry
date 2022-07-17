@@ -12,6 +12,6 @@ public class BaseChestMenu extends ModBaseBlockEntityMenu<BaseChestBlockEntity> 
     public BaseChestMenu(int windowId, Inventory inv, BaseChestBlockEntity blockEntity) {
         super(ModMenuTypes.BASE_CHEST.get(), windowId, inv, blockEntity);
 
-        addSlotBox(blockEntity.getSave().getSlots(), 0, 10, 10, 9, 18, 4, 18);
+        addSlotBox(blockEntity.getSlots().get(), 0, 10, 10, 9, 18, 4, 18);
     }
 }

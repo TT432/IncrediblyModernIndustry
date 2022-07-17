@@ -62,11 +62,11 @@ public class ThermalGui extends ModFragment {
         energyView.setBackground(energy);
 
         FrameLayout burnView = new FrameLayout();
-        var burn = new CircularProgressDrawable(burnData, menu.blockEntity.getSync().getMaxBurnTick(), 0xFFC0392B);
+        var burn = new CircularProgressDrawable(burnData, menu.blockEntity.getMaxBurnTick().get(), 0xFFC0392B);
         burn.setStartAngle(-90);
         menu.blockEntity.setBurnTickChangeListener(be -> {
-            burnData.postValue(be.getSync().getBurnTick());
-            burn.setMax(be.getSync().getMaxBurnTick());
+            burnData.postValue(be.getBurnTick().get());
+            burn.setMax(be.getMaxBurnTick().get());
         });
         burnView.setBackground(burn);
 

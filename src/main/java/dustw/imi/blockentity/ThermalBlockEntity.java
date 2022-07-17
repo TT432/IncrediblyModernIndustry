@@ -4,7 +4,6 @@ import dustw.imi.blockentity.base.ModBaseMenuBlockEntity;
 import dustw.imi.blockentity.component.ChangeListenerEnergyStorage;
 import dustw.imi.blockentity.reg.ModBlockEntities;
 import dustw.imi.menu.ThermalMenu;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
@@ -23,13 +22,15 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tt432.millennium.sync.SyncDataManager;
+import tt432.millennium.sync.primitive.IntSyncData;
 
 import java.util.function.Consumer;
 
 /**
  * @author DustW
  **/
-public class ThermalBlockEntity extends ModBaseMenuBlockEntity<ThermalBlockEntity.SaveObject, ThermalBlockEntity.SyncObject> {
+public class ThermalBlockEntity extends ModBaseMenuBlockEntity {
 
     public static final int MAX_ENERGY = 200_0000;
     public static final int ENERGY_PRE_TICK = 40;
@@ -46,7 +47,7 @@ public class ThermalBlockEntity extends ModBaseMenuBlockEntity<ThermalBlockEntit
         super.tick();
 
         if (!getLevel().isClientSide) {
-            boolean burning = getSync().burnTick > 0;
+            boolean burning = burnTick.get() > 0;
             boolean notFull = energyStorage.getEnergyStored() < energyStorage.getMaxEnergyStored();
 
             if (!burning && notFull) {
@@ -54,44 +55,25 @@ public class ThermalBlockEntity extends ModBaseMenuBlockEntity<ThermalBlockEntit
 
                 if (!stack.isEmpty()) {
                     int burnTime = ForgeHooks.getBurnTime(stack, null);
-                    getSync().setBurnTick(burnTime);
-                    getSync().setMaxBurnTick(burnTime);
+                    burnTick.set(burnTime);
+                    maxBurnTick.set(burnTime);
                     getBurnItem().extractItem(0, 1, false);
 
                     setChanged();
                 }
-                else if (getSync().getMaxBurnTick() != 0) {
-                    getSync().setMaxBurnTick(0);
+                else if (maxBurnTick.get() != 0) {
+                    maxBurnTick.set(0);
                 }
             } else if (burning && notFull) {
-                getSync().burnTick = Math.max(0, getSync().burnTick - 1);
+                burnTick.reduce(1, 0);
                 energyStorage.receiveEnergy(ENERGY_PRE_TICK, false);
 
                 setChanged();
             }
         }
-
-        burnTickChanged();
-    }
-
-    @Override
-    protected SyncObject registerSyncObject() {
-        return new SyncObject();
-    }
-
-    @Override
-    protected Class<SyncObject> getSyncObjectClass() {
-        return SyncObject.class;
-    }
-
-    @Override
-    protected SaveObject registerSaveObject() {
-        return new SaveObject();
-    }
-
-    @Override
-    protected Class<SaveObject> getSaveObjectClass() {
-        return SaveObject.class;
+        else {
+            onBurnTickChanged();
+        }
     }
 
     @Nullable
@@ -108,35 +90,24 @@ public class ThermalBlockEntity extends ModBaseMenuBlockEntity<ThermalBlockEntit
         }
     };
 
-    @Data
-    public static class SaveObject {
-
-    }
-
     @Setter
     Consumer<ThermalBlockEntity> burnTickChangeListener;
 
-    @Data
-    public static class SyncObject {
-        int burnTick;
-        int maxBurnTick;
-    }
+    @Getter
+    IntSyncData burnTick;
+    @Getter
+    IntSyncData maxBurnTick;
 
     int lastBurnTick;
 
-    void burnTickChanged() {
-        if (getSync().burnTick != lastBurnTick) {
-            lastBurnTick = getSync().burnTick;
+    void onBurnTickChanged() {
+        if (burnTick.get() != lastBurnTick) {
+            lastBurnTick = burnTick.get();
 
             if (burnTickChangeListener != null) {
-                burnTickChangeListener.accept(this);
+                burnTickChangeListener.accept(ThermalBlockEntity.this);
             }
         }
-    }
-
-    @Override
-    protected boolean needSaveSyncObject() {
-        return true;
     }
 
     @NotNull
@@ -144,6 +115,12 @@ public class ThermalBlockEntity extends ModBaseMenuBlockEntity<ThermalBlockEntit
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         LazyOptional<T> tLazyOptional = CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, LazyOptional.of(() -> getBurnItem()));
         return tLazyOptional.isPresent() ? tLazyOptional : CapabilityEnergy.ENERGY.orEmpty(cap, LazyOptional.of(() -> energyStorage));
+    }
+
+    @Override
+    protected void registerSyncData(SyncDataManager manager) {
+        manager.add(burnTick = new IntSyncData("burnTick", 0, true));
+        manager.add(maxBurnTick = new IntSyncData("maxBurnTick", 0, true));
     }
 
     @Override

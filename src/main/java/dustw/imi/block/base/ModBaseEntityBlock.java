@@ -24,7 +24,7 @@ import java.util.function.Supplier;
 /**
  * @author DustW
  **/
-public class ModBaseEntityBlock<T extends ModBaseBlockEntity<?, ?>> extends Block implements EntityBlock {
+public class ModBaseEntityBlock<T extends ModBaseBlockEntity> extends Block implements EntityBlock {
     Supplier<BlockEntityType<T>> type;
 
     public ModBaseEntityBlock(Properties p_49795_, Supplier<BlockEntityType<T>> type) {

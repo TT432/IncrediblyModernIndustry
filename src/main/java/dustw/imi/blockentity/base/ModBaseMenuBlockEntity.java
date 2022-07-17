@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 /**
  * @author DustW
  **/
-public abstract class ModBaseMenuBlockEntity<SAVE, SYNC> extends ModBaseBlockEntity<SAVE, SYNC> implements MenuProvider {
+public abstract class ModBaseMenuBlockEntity extends ModBaseBlockEntity implements MenuProvider {
 
     public ModBaseMenuBlockEntity(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
         super(pType, pWorldPosition, pBlockState);
