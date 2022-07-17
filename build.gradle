@@ -152,7 +152,8 @@ repositories {
         url 'https://modmaven.dev/'
     }
 
-    mavenLocal()
+    //mavenLocal()
+    maven { url "https://jitpack.io" }
 }
 
 configurations {
@@ -180,7 +181,8 @@ dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
-    implementation fg.deobf("tt432:millennium:1.18.2-1-1")
+    //implementation fg.deobf("tt432:millennium:1.18.2-1-1")
+    implementation fg.deobf("com.github.MillenniumLibrary:Millennium:master-SNAPSHOT")
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
