@@ -30,6 +30,9 @@ public class ModBlocks {
     public static final RegistryObject<CreativeEnergyBlock> CREATIVE_ENERGY = REGISTER.register("creative_energy",
             () -> new CreativeEnergyBlock(stone()));
 
+    public static final RegistryObject<ElectricFurnaceBlock> ELECTRIC_FURNACE = REGISTER.register("electric_furnace",
+            () -> new ElectricFurnaceBlock(stone()));
+
     static BlockBehaviour.Properties stone() {
         return BlockBehaviour.Properties.of(Material.STONE);
     }

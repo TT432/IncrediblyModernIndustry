@@ -6,12 +6,14 @@
   "block.imi.thermal": "Thermal",
   "block.imi.tech_tree_viewer": "Tech Tree Viewer",
   "block.imi.grinder": "Grinder",
+  "block.imi.electric_furnace": "Electric Furnace",
 
   "container.imi.base_chest": "Base Chest",
   "container.imi.creative_energy": "Creative Energy",
   "container.imi.thermal": "Thermal",
   "container.imi.tech_tree_viewer": "Tech Tree Viewer",
   "container.imi.grinder": "Grinder",
+  "container.imi.electric_furnace": "Electric Furnace",
 
   "item.imi.iron_powder": "Iron Powder",
   "item.imi.stone_powder": "Stone Powder",

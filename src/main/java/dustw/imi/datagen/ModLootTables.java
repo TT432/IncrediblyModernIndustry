@@ -16,9 +16,12 @@ public class ModLootTables extends BaseLootTableProvider {
 
     @Override
     protected void addTables() {
-        simple(ModBlocks.THERMAL);
-        simple(ModBlocks.TECH_TREE_VIEWER);
         simple(ModBlocks.BASE_CHEST);
+        simple(ModBlocks.TECH_TREE_VIEWER);
+        simple(ModBlocks.THERMAL);
+        simple(ModBlocks.CREATIVE_ENERGY);
+        simple(ModBlocks.GRINDER);
+        simple(ModBlocks.ELECTRIC_FURNACE);
     }
 
     void simple(RegistryObject<? extends Block> block) {

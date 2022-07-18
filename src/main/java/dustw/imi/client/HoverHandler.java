@@ -3,6 +3,7 @@ package dustw.imi.client;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dustw.imi.menu.BaseChestMenu;
+import dustw.imi.menu.ElectricFurnaceMenu;
 import dustw.imi.menu.GrinderMenu;
 import dustw.imi.menu.ThermalMenu;
 import icyllis.modernui.textmc.FormattedTextWrapper;
@@ -49,7 +50,8 @@ public class HoverHandler {
 
         if (currentMenu instanceof BaseChestMenu ||
                 currentMenu instanceof ThermalMenu ||
-                currentMenu instanceof GrinderMenu) {
+                currentMenu instanceof GrinderMenu ||
+                currentMenu instanceof ElectricFurnaceMenu) {
             ItemStack carried = currentMenu.getCarried();
 
             if (!carried.isEmpty()) {

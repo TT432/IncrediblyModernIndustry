@@ -20,6 +20,7 @@ public class ModItems {
     public static final RegistryObject<BlockItem> THERMAL = block(ModBlocks.THERMAL);
     public static final RegistryObject<BlockItem> GRINDER = block(ModBlocks.GRINDER);
     public static final RegistryObject<BlockItem> CREATIVE_ENERGY = block(ModBlocks.CREATIVE_ENERGY);
+    public static final RegistryObject<BlockItem> ELECTRIC_FURNACE = block(ModBlocks.ELECTRIC_FURNACE);
 
 
     public static final RegistryObject<Item> IRON_POWDER = powder("iron");

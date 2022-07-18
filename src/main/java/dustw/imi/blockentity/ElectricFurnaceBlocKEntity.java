@@ -3,9 +3,7 @@ package dustw.imi.blockentity;
 import dustw.imi.blockentity.base.ModBaseMenuBlockEntity;
 import dustw.imi.blockentity.component.ChangeListenerEnergyStorage;
 import dustw.imi.blockentity.reg.ModBlockEntities;
-import dustw.imi.menu.GrinderMenu;
-import dustw.imi.recipe.GrinderRecipe;
-import dustw.imi.recipe.reg.ModRecipeTypes;
+import dustw.imi.menu.ElectricFurnaceMenu;
 import dustw.imi.utils.ItemHandlerUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +15,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -30,16 +30,15 @@ import tt432.millennium.sync.object.StringSyncData;
 import tt432.millennium.sync.primitive.IntSyncData;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author DustW
  */
-public class GrinderBlockEntity extends ModBaseMenuBlockEntity {
+public class ElectricFurnaceBlocKEntity extends ModBaseMenuBlockEntity {
     public static final int MAX_ENERGY = 20_0000;
 
-    public GrinderBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(ModBlockEntities.GRINDER.get(), pWorldPosition, pBlockState);
+    public ElectricFurnaceBlocKEntity(BlockPos pWorldPosition, BlockState pBlockState) {
+        super(ModBlockEntities.ELECTRIC_FURNACE.get(), pWorldPosition, pBlockState);
     }
 
     @Getter
@@ -53,35 +52,42 @@ public class GrinderBlockEntity extends ModBaseMenuBlockEntity {
     IntSyncData maxCraftTick;
 
     StringSyncData recipe;
-    GrinderRecipe _recipe;
+    SmeltingRecipe _recipe;
 
-    public GrinderRecipe getRecipe() {
+    public SmeltingRecipe getRecipe() {
         return recipe.isEmpty() ? null : _recipe == null ?
-                _recipe = (GrinderRecipe) getLevel().getRecipeManager().byKey(new ResourceLocation(recipe.get())).get() : _recipe;
+                _recipe = (SmeltingRecipe) getLevel().getRecipeManager().byKey(new ResourceLocation(recipe.get())).get() : _recipe;
     }
 
     @Getter
     ChangeListenerEnergyStorage energy = new ChangeListenerEnergyStorage(MAX_ENERGY);
 
     @Override
+    protected void registerSyncData(SyncDataManager manager) {
+        manager.add(craftTick = new IntSyncData("craftTick", 0, true));
+        manager.add(maxCraftTick = new IntSyncData("maxCraftTick", 0, true));
+        manager.add(recipe = new StringSyncData("recipe", "", true));
+        manager.add(input = new ItemStackHandlerSyncData("input", 1, true));
+        manager.add(output = new ItemStackHandlerSyncData("output", 1, true));
+    }
+
+    @Override
     protected void tick() {
         super.tick();
 
-        if (getLevel() != null && !getLevel().isClientSide) {
-            GrinderRecipe recipe = getRecipe();
-
-            if (recipe == null) {
+        if (level != null && !level.isClientSide) {
+            if (getRecipe() == null) {
                 findRecipe();
             }
-            else if (canCraft(recipe)) {
+            else if (canCraft(getRecipe())) {
                 craftTick.reduce(1, 0);
 
                 if (craftTick.get() == 0) {
-                    finishCraftWithOutput();
+                    finishRecipeWithItem();
                 }
             }
             else {
-                finishCraft();
+                finishRecipe();
             }
         }
         else {
@@ -89,47 +95,48 @@ public class GrinderBlockEntity extends ModBaseMenuBlockEntity {
         }
     }
 
-    boolean findRecipe() {
-        if (getLevel() != null) {
-            Optional<GrinderRecipe> first = getLevel().getRecipeManager()
-                    .getAllRecipesFor(ModRecipeTypes.GRINDER.get())
-                    .stream()
-                    .filter(this::canCraft)
-                    .findFirst();
+    void findRecipe() {
+        List<SmeltingRecipe> allRecipes = level.getRecipeManager().getAllRecipesFor(RecipeType.SMELTING);
 
-            if (first.isPresent()) {
-                GrinderRecipe recipe = first.get();
-
-                _recipe = recipe;
-                this.recipe.set(recipe.getId().toString());
-                maxCraftTick.set(recipe.getCraftTick());
-                craftTick.set(recipe.getCraftTick());
-
-                return true;
+        for (SmeltingRecipe recipe : allRecipes) {
+            if (canCraft(recipe)) {
+                setRecipe(recipe);
             }
         }
-
-        return false;
     }
 
-    boolean canCraft(GrinderRecipe recipe) {
-        return recipe.getInput().test(input.get().getStackInSlot(0)) &&
-                energy.getEnergyStored() >= recipe.getRequiredEnergy() &&
-                output.get().insertItem(0, recipe.getResultItem(), true).isEmpty();
+    private void setRecipe(@NotNull SmeltingRecipe recipe) {
+        this._recipe = recipe;
+        this.recipe.set(recipe.getId().toString());
+
+        int craftTick = recipe.getCookingTime() / 10;
+        this.maxCraftTick.set(craftTick);
+        this.craftTick.set(craftTick);
     }
 
-    void finishCraft() {
-        _recipe = null;
-        recipe.set("");
-        maxCraftTick.set(0);
-        craftTick.set(0);
+    boolean canCraft(SmeltingRecipe recipe) {
+        return recipe.getIngredients().get(0).test(input.get().getStackInSlot(0)) &&
+                energy.getEnergyStored() >= getRequiredEnergy(recipe) &&
+                output.get().insertItem(0, recipe.getResultItem().copy(), true).isEmpty();
     }
 
-    void finishCraftWithOutput() {
-        output.get().insertItem(0, getRecipe().getResultItem(), false);
+    private void finishRecipe() {
+        this._recipe = null;
+        this.recipe.set("");
+        this.maxCraftTick.set(0);
+        this.craftTick.set(0);
+    }
+
+    private void finishRecipeWithItem() {
         input.get().extractItem(0, 1, false);
-        energy.extractEnergy(getRecipe().getRequiredEnergy(), false);
-        finishCraft();
+        output.get().insertItem(0, getRecipe().getResultItem().copy(), false);
+        energy.extractEnergy(getRequiredEnergy(getRecipe()), false);
+
+        finishRecipe();
+    }
+
+    private int getRequiredEnergy(SmeltingRecipe recipe) {
+        return recipe.getCookingTime() * 80;
     }
 
     @Setter
@@ -147,19 +154,10 @@ public class GrinderBlockEntity extends ModBaseMenuBlockEntity {
         }
     }
 
-    @Override
-    protected void registerSyncData(SyncDataManager manager) {
-        manager.add(craftTick = new IntSyncData("craftTick", 0, true));
-        manager.add(maxCraftTick = new IntSyncData("maxCraftTick", 0, true));
-        manager.add(recipe = new StringSyncData("recipe", "", true));
-        manager.add(input = new ItemStackHandlerSyncData("input", 1, true));
-        manager.add(output = new ItemStackHandlerSyncData("output", 1, true));
-    }
-
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return new GrinderMenu(pContainerId, pPlayerInventory, this);
+        return new ElectricFurnaceMenu(pContainerId, pPlayerInventory, this);
     }
 
     @NotNull

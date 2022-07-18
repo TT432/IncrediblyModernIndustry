@@ -5,6 +5,8 @@ import dustw.imi.blockentity.base.ModBaseBlockEntity;
 import dustw.imi.blockentity.base.ModBaseMenuBlockEntity;
 import icyllis.modernui.forge.MuiForgeApi;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -45,6 +47,18 @@ public class ModBaseEntityBlock<T extends ModBaseBlockEntity> extends Block impl
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return type.get().create(pPos, pState);
+    }
+
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+        if (!pState.is(pNewState.getBlock())) {
+            if (pLevel.getBlockEntity(pPos) instanceof ModBaseBlockEntity mbe) {
+                mbe.getDrops().forEach(i -> {
+                    Containers.dropItemStack(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), i);
+                });
+            }
+
+            super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+        }
     }
 
     @Nullable

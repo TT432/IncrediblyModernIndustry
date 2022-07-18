@@ -2,13 +2,11 @@ package dustw.imi.modernui.handler;
 
 import dustw.imi.Imi;
 import dustw.imi.menu.BaseChestMenu;
+import dustw.imi.menu.ElectricFurnaceMenu;
 import dustw.imi.menu.GrinderMenu;
 import dustw.imi.menu.ThermalMenu;
 import dustw.imi.menu.reg.ModMenuTypes;
-import dustw.imi.modernui.gui.BaseChestGui;
-import dustw.imi.modernui.gui.GrinderGui;
-import dustw.imi.modernui.gui.TechTreeGui;
-import dustw.imi.modernui.gui.ThermalGui;
+import dustw.imi.modernui.gui.*;
 import icyllis.modernui.forge.OpenMenuEvent;
 import icyllis.modernui.fragment.Fragment;
 import icyllis.modernui.util.DataSet;
@@ -39,6 +37,9 @@ public class OpenGuiHandler {
         }
         else if (menu.getType() == ModMenuTypes.GRINDER.get()) {
             event.set(setBaseArguments(new GrinderGui((GrinderMenu) menu), menu));
+        }
+        else if (menu.getType() == ModMenuTypes.ELECTRIC_FURNACE.get()) {
+            event.set(setBaseArguments(new ElectricFurnaceGui((ElectricFurnaceMenu) menu), menu));
         }
     }
 

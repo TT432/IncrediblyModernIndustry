@@ -31,6 +31,7 @@ public class ModBlockStates extends BlockStateProvider {
         simpleSideBlock(ModBlocks.THERMAL);
         simpleSideBlock(ModBlocks.CREATIVE_ENERGY);
         simpleSideBlock(ModBlocks.GRINDER);
+        simpleSideBlock(ModBlocks.ELECTRIC_FURNACE);
     }
 
     public static final ResourceLocation TOP = new ResourceLocation(DataGenerators.MOD_ID, "block/top");

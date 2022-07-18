@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "imi:block/electric_furnace",
+    "bottom": "imi:block/top",
+    "top": "imi:block/top"
+  }
+}

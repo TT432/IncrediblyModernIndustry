@@ -2,10 +2,7 @@ package dustw.imi.blockentity.reg;
 
 import dustw.imi.Imi;
 import dustw.imi.block.reg.ModBlocks;
-import dustw.imi.blockentity.BaseChestBlockEntity;
-import dustw.imi.blockentity.CreativeEnergyBlockEntity;
-import dustw.imi.blockentity.GrinderBlockEntity;
-import dustw.imi.blockentity.ThermalBlockEntity;
+import dustw.imi.blockentity.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -33,4 +30,8 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<CreativeEnergyBlockEntity>> CREATIVE_ENERGY =
             REGISTER.register("creative_energy", () -> BlockEntityType.Builder
                     .of(CreativeEnergyBlockEntity::new, ModBlocks.CREATIVE_ENERGY.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<ElectricFurnaceBlocKEntity>> ELECTRIC_FURNACE =
+            REGISTER.register("electric_furnace", () -> BlockEntityType.Builder
+                    .of(ElectricFurnaceBlocKEntity::new, ModBlocks.ELECTRIC_FURNACE.get()).build(null));
 }

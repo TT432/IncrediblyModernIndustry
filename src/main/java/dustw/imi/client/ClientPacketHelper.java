@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author DustW
  **/
-public class PacketHelper {
+public class ClientPacketHelper {
     public static void handleInventoryMouseClick(int pContainerId, int pSlotId, int pMouseButton, ClickType pClickType) {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;

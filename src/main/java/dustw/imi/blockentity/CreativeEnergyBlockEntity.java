@@ -4,10 +4,14 @@ import dustw.imi.blockentity.base.ModBaseBlockEntity;
 import dustw.imi.blockentity.reg.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.energy.CapabilityEnergy;
 import tt432.millennium.sync.SyncDataManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author DustW
@@ -37,5 +41,10 @@ public class CreativeEnergyBlockEntity extends ModBaseBlockEntity {
                 }
             }
         }
+    }
+
+    @Override
+    public List<ItemStack> getDrops() {
+        return new ArrayList<>();
     }
 }

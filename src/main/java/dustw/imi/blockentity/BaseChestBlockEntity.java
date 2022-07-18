@@ -3,12 +3,14 @@ package dustw.imi.blockentity;
 import dustw.imi.blockentity.base.ModBaseMenuBlockEntity;
 import dustw.imi.blockentity.reg.ModBlockEntities;
 import dustw.imi.menu.BaseChestMenu;
+import dustw.imi.utils.ItemHandlerUtils;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -17,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tt432.millennium.sync.SyncDataManager;
 import tt432.millennium.sync.object.ItemStackHandlerSyncData;
+
+import java.util.List;
 
 /**
  * @author DustW
@@ -44,5 +48,10 @@ public class BaseChestBlockEntity extends ModBaseMenuBlockEntity {
     @Override
     protected void registerSyncData(SyncDataManager manager) {
         manager.add(slots = new ItemStackHandlerSyncData("slots", 36, true));
+    }
+
+    @Override
+    public List<ItemStack> getDrops() {
+        return ItemHandlerUtils.from(slots.get());
     }
 }

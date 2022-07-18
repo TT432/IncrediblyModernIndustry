@@ -33,6 +33,7 @@ public class ModItemModels extends ItemModelProvider {
         block(ModBlocks.BASE_CHEST);
         block(ModBlocks.GRINDER);
         block(ModBlocks.CREATIVE_ENERGY);
+        block(ModBlocks.ELECTRIC_FURNACE);
 
         powder(ModItems.IRON_POWDER);
         powder(ModItems.GOLD_POWDER);

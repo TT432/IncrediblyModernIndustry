@@ -4,6 +4,7 @@ import dustw.imi.blockentity.base.ModBaseMenuBlockEntity;
 import dustw.imi.blockentity.component.ChangeListenerEnergyStorage;
 import dustw.imi.blockentity.reg.ModBlockEntities;
 import dustw.imi.menu.ThermalMenu;
+import dustw.imi.utils.ItemHandlerUtils;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
@@ -25,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import tt432.millennium.sync.SyncDataManager;
 import tt432.millennium.sync.primitive.IntSyncData;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -145,5 +147,10 @@ public class ThermalBlockEntity extends ModBaseMenuBlockEntity {
         if (!isSyncTag(tag)) {
             burnItem.deserializeNBT(tag.getCompound("items"));
         }
+    }
+
+    @Override
+    public List<ItemStack> getDrops() {
+        return ItemHandlerUtils.from(burnItem);
     }
 }

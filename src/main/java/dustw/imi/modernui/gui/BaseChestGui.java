@@ -1,6 +1,6 @@
 package dustw.imi.modernui.gui;
 
-import dustw.imi.client.PacketHelper;
+import dustw.imi.client.ClientPacketHelper;
 import dustw.imi.menu.BaseChestMenu;
 import dustw.imi.modernui.component.button.ItemSlotButton;
 import dustw.imi.modernui.component.drawable.BackgroundDrawable;
@@ -84,7 +84,7 @@ public class BaseChestGui extends ModFragment {
                 int finalI = i;
                 button.setOnClickListener(v -> {
                     // TODO 快速移动物品（Shift + 左）
-                    PacketHelper.handleInventoryMouseClick(menu.containerId, finalI, GLFW.GLFW_MOUSE_BUTTON_LEFT, ClickType.PICKUP);
+                    ClientPacketHelper.handleInventoryMouseClick(menu.containerId, finalI, GLFW.GLFW_MOUSE_BUTTON_LEFT, ClickType.PICKUP);
                     button.invalidate();
                 });
 
