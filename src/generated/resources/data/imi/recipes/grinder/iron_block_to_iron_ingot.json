@@ -1,0 +1,12 @@
+{
+  "input": {
+    "item": "minecraft:iron_block"
+  },
+  "output": {
+    "item": "minecraft:iron_ingot",
+    "count": 9
+  },
+  "craftTick": 100,
+  "requiredEnergy": 1000,
+  "type": "imi:grinder"
+}

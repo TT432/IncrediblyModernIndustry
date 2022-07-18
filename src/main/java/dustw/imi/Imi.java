@@ -4,6 +4,7 @@ import dustw.imi.block.reg.ModBlocks;
 import dustw.imi.blockentity.reg.ModBlockEntities;
 import dustw.imi.item.reg.ModItems;
 import dustw.imi.menu.reg.ModMenuTypes;
+import dustw.imi.recipe.reg.ModRecipeTypes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -30,5 +31,6 @@ public class Imi {
         ModBlockEntities.REGISTER.register(bus);
         ModMenuTypes.REGISTER.register(bus);
         ModItems.REGISTER.register(bus);
+        ModRecipeTypes.REGISTER.register(bus);
     }
 }

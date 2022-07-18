@@ -2,6 +2,7 @@ package dustw.imi.menu.reg;
 
 import dustw.imi.Imi;
 import dustw.imi.menu.BaseChestMenu;
+import dustw.imi.menu.GrinderMenu;
 import dustw.imi.menu.TechTreeViewerMenu;
 import dustw.imi.menu.ThermalMenu;
 import net.minecraft.world.entity.player.Inventory;
@@ -28,6 +29,9 @@ public class ModMenuTypes {
 
     public static final RegistryObject<MenuType<ThermalMenu>> THERMAL =
             REGISTER.register("thermal", () -> from(ThermalMenu::new));
+
+    public static final RegistryObject<MenuType<GrinderMenu>> GRINDER =
+            REGISTER.register("grinder", () -> from(GrinderMenu::new));
 
     private interface ModBlockEntityContainerMenuCreator<M extends AbstractContainerMenu, T extends BlockEntity> {
         M create(int windowId, Inventory inv, T blockEntity);

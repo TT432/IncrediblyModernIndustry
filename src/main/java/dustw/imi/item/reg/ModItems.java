@@ -21,6 +21,10 @@ public class ModItems {
 
     public static final RegistryObject<BlockItem> THERMAL = block(ModBlocks.THERMAL);
 
+    public static final RegistryObject<BlockItem> GRINDER = block(ModBlocks.GRINDER);
+
+    public static final RegistryObject<BlockItem> CREATIVE_ENERGY = block(ModBlocks.CREATIVE_ENERGY);
+
     private static Item.Properties base() {
         return new Item.Properties().tab(Imi.TAB);
     }

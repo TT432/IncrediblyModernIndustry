@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author DustW
  **/
-public class SlotButton extends RadioButton {
+public class ItemSlotButton extends RadioButton {
     final int radius = View.dp(4);
     @Getter
     final BackgroundDrawable backgroundDrawable = new BackgroundDrawable(4);
@@ -31,15 +31,15 @@ public class SlotButton extends RadioButton {
 
     int alpha;
 
-    protected static final IntProperty<SlotButton> ALPHA_PROPERTY = new IntProperty<>() {
+    protected static final IntProperty<ItemSlotButton> ALPHA_PROPERTY = new IntProperty<>() {
         @Override
-        public void setValue(@NotNull SlotButton object, int value) {
+        public void setValue(@NotNull ItemSlotButton object, int value) {
             object.alpha = value;
             object.invalidate();
         }
 
         @Override
-        public Integer get(@NotNull SlotButton object) {
+        public Integer get(@NotNull ItemSlotButton object) {
             return object.alpha;
         }
     };
@@ -49,7 +49,7 @@ public class SlotButton extends RadioButton {
 
     Slot slot;
 
-    public SlotButton(Slot slot) {
+    public ItemSlotButton(Slot slot) {
         this.slot = slot;
 
         setBackground(backgroundDrawable);

@@ -2,8 +2,7 @@ package dustw.imi.modernui.gui;
 
 import dustw.imi.client.PacketHelper;
 import dustw.imi.menu.BaseChestMenu;
-import dustw.imi.modernui.UiUtils;
-import dustw.imi.modernui.component.button.SlotButton;
+import dustw.imi.modernui.component.button.ItemSlotButton;
 import dustw.imi.modernui.component.drawable.BackgroundDrawable;
 import dustw.imi.modernui.gui.base.ModFragment;
 import icyllis.modernui.util.DataSet;
@@ -76,7 +75,7 @@ public class BaseChestGui extends ModFragment {
             var index = i / 9;
 
             if (index < lines.length) {
-                var button = new SlotButton(menu.slots.get(i));
+                var button = new ItemSlotButton(menu.slots.get(i));
 
                 int size = dp(38);
                 var params = new LinearLayout.LayoutParams(size, size);
@@ -108,8 +107,7 @@ public class BaseChestGui extends ModFragment {
 
         slots.addView(chestSlots, center());
 
-        var invName = UiUtils.invName(menu.inventory);
-        slots.addView(invName, left(5, 5, 5, 5));
+        slots.addView(invName(menu.inventory), left(5, 5, 5, 5));
 
         slots.addView(playerInventory, center());
 

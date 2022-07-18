@@ -10,3 +10,4 @@ c961a0018614d2bfe7baa2ab15f5de16674be102 assets/imi/models/item/thermal.json
 6655fe8e25d7e08a05440818405ff398b859569c data/imi/loot_tables/blocks/base_chest.json
 0f5f753c21a5e91d61ad987e5cfa611d1bc41074 data/imi/loot_tables/blocks/tech_tree_viewer.json
 687e48bb0911632a564ef94a2dcd6d5ceab93345 data/imi/loot_tables/blocks/thermal.json
+0eaa93c744ec475a8519b9d1d43d9bcd584704c0 data/imi/recipes/grinder/iron_block_to_iron_ingot.json
