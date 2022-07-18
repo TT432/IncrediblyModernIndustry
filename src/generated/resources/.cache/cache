@@ -23,8 +23,10 @@ c961a0018614d2bfe7baa2ab15f5de16674be102 assets/imi/models/item/thermal.json
 687e48bb0911632a564ef94a2dcd6d5ceab93345 data/imi/loot_tables/blocks/thermal.json
 32bc4c0d412519fa59d8e94ffe782f7aa42f0d21 data/imi/recipes/grinder/coal_powder.json
 0ab2e8346328f0285588d19e4c1dad0866214435 data/imi/recipes/grinder/gold_powder.json
+ebac646bdaecab0280b32e34700e0f518f775a80 data/imi/recipes/grinder/gold_powder_2.json
 88c065939079676d9bc58b8ee215fbfc5a8a91b9 data/imi/recipes/grinder/iron_block_to_iron_ingot.json
 b261d232fd7c861e8c27a10cb19982e8b9b8104a data/imi/recipes/grinder/iron_powder.json
+81a167fdaf31e17bf3e195e0ee11c936d6b9efeb data/imi/recipes/grinder/iron_powder_2.json
 096825c80ef1feec261c9bd7858c0d39f21b57ed data/imi/recipes/grinder/stone_powder.json
 e992f51a3e4c379c297a6c8515227fe222d56a6c data/imi/recipes/grinder/wood_powder.json
 7a3cec7513f6e73af5a56b7f6ad7114ab753e4ad data/minecraft/advancements/recipes/misc/gold_ingot.json

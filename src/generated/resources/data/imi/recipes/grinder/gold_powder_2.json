@@ -1,0 +1,12 @@
+{
+  "input": {
+    "item": "minecraft:gold_ingot"
+  },
+  "output": {
+    "item": "imi:gold_powder",
+    "count": 1
+  },
+  "craftTick": 100,
+  "requiredEnergy": 8000,
+  "type": "imi:grinder"
+}

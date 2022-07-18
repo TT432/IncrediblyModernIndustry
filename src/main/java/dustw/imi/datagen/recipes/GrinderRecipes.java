@@ -25,9 +25,19 @@ public class GrinderRecipes extends ModGenRecipes {
                 new ItemStack(ModItems.IRON_POWDER.get(), 2),
                 100, 8000);
 
+        addRecipe("iron_powder_2",
+                Ingredient.of(Items.IRON_INGOT),
+                new ItemStack(ModItems.IRON_POWDER.get()),
+                100, 8000);
+
         addRecipe("gold_powder",
                 Ingredient.of(Items.RAW_GOLD),
                 new ItemStack(ModItems.GOLD_POWDER.get(), 2),
+                100, 8000);
+
+        addRecipe("gold_powder_2",
+                Ingredient.of(Items.GOLD_INGOT),
+                new ItemStack(ModItems.GOLD_POWDER.get()),
                 100, 8000);
 
         addRecipe("stone_powder",
