@@ -2,6 +2,7 @@ package dustw.imi.datagen;
 
 import dustw.imi.Imi;
 import dustw.imi.block.reg.ModBlocks;
+import dustw.imi.item.reg.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
@@ -32,6 +33,12 @@ public class ModItemModels extends ItemModelProvider {
         block(ModBlocks.BASE_CHEST);
         block(ModBlocks.GRINDER);
         block(ModBlocks.CREATIVE_ENERGY);
+
+        powder(ModItems.IRON_POWDER);
+        powder(ModItems.GOLD_POWDER);
+        powder(ModItems.STONE_POWDER);
+        powder(ModItems.WOOD_POWDER);
+        powder(ModItems.COAL_POWDER);
     }
 
     void block(RegistryObject<? extends Block> block) {
@@ -53,6 +60,12 @@ public class ModItemModels extends ItemModelProvider {
                 }
             }
         });
+    }
+
+    final ResourceLocation POWDER = modLoc("item/powder");
+
+    void powder(Supplier<Item> item) {
+        singleTexture(item.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", POWDER);
     }
 
     void simpleTexture(Supplier<Item> itemSupplier) {

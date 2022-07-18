@@ -1,0 +1,12 @@
+{
+  "input": {
+    "tag": "minecraft:logs"
+  },
+  "output": {
+    "item": "imi:wood_powder",
+    "count": 4
+  },
+  "craftTick": 100,
+  "requiredEnergy": 8000,
+  "type": "imi:grinder"
+}

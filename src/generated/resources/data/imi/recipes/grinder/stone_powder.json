@@ -1,0 +1,12 @@
+{
+  "input": {
+    "item": "minecraft:stone"
+  },
+  "output": {
+    "item": "imi:stone_powder",
+    "count": 2
+  },
+  "craftTick": 100,
+  "requiredEnergy": 8000,
+  "type": "imi:grinder"
+}

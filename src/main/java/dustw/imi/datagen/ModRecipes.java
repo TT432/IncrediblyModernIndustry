@@ -2,11 +2,17 @@ package dustw.imi.datagen;
 
 import dustw.imi.datagen.recipes.GrinderRecipes;
 import dustw.imi.datagen.recipes.ModGenRecipes;
+import dustw.imi.item.reg.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.HashCache;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Blocks;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -34,8 +40,17 @@ public class ModRecipes extends RecipeProvider {
     }
 
     protected void vanillaRecipes(Consumer<FinishedRecipe> consumer) {
-        //SimpleCookingRecipeBuilder.smelting()
-        //        .unlockedBy("has_stone", has(Blocks.DIORITE)).save(consumer);
+        smelting(consumer, ModItems.IRON_POWDER.get(), Items.IRON_INGOT);
+        smelting(consumer, ModItems.GOLD_POWDER.get(), Items.GOLD_INGOT);
+    }
+
+    void smelting(Consumer<FinishedRecipe> consumer, Item input, Item output) {
+        SimpleCookingRecipeBuilder.smelting(
+                Ingredient.of(input),
+                output,
+                .3F,
+                200
+        ).unlockedBy("has_stone", has(Blocks.DIORITE)).save(consumer);
     }
 
     @Override

@@ -1,0 +1,12 @@
+{
+  "input": {
+    "item": "minecraft:raw_iron"
+  },
+  "output": {
+    "item": "imi:iron_powder",
+    "count": 2
+  },
+  "craftTick": 100,
+  "requiredEnergy": 8000,
+  "type": "imi:grinder"
+}
