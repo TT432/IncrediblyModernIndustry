@@ -1,4 +1,4 @@
-package dustw.imi.techtree;
+package dustw.imi.datapack.techtree;
 
 import lombok.Data;
 import net.minecraft.network.chat.TranslatableComponent;

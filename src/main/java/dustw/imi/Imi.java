@@ -2,6 +2,7 @@ package dustw.imi;
 
 import dustw.imi.block.reg.ModBlocks;
 import dustw.imi.blockentity.reg.ModBlockEntities;
+import dustw.imi.datapack.reg.ModData;
 import dustw.imi.item.reg.ModItems;
 import dustw.imi.menu.reg.ModMenuTypes;
 import dustw.imi.recipe.reg.ModRecipeTypes;
@@ -32,5 +33,7 @@ public class Imi {
         ModMenuTypes.REGISTER.register(bus);
         ModItems.REGISTER.register(bus);
         ModRecipeTypes.REGISTER.register(bus);
+
+        ModData.REGISTER.register(bus);
     }
 }
