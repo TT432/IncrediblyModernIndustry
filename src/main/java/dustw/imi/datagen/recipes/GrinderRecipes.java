@@ -42,7 +42,7 @@ public class GrinderRecipes extends ModGenRecipes {
 
         addRecipe("stone_powder",
                 Ingredient.of(Items.STONE),
-                new ItemStack(ModItems.STONE_POWDER.get(), 2),
+                new ItemStack(ModItems.STONE_POWDER.get(), 4),
                 100, 8000);
 
         addRecipe("wood_powder",
@@ -52,7 +52,7 @@ public class GrinderRecipes extends ModGenRecipes {
 
         addRecipe("coal_powder",
                 Ingredient.of(ItemTags.COALS),
-                new ItemStack(ModItems.COAL_POWDER.get(), 4),
+                new ItemStack(ModItems.COAL_POWDER.get(), 1),
                 100, 8000);
     }
 

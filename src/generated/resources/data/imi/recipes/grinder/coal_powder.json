@@ -4,7 +4,7 @@
   },
   "output": {
     "item": "imi:coal_powder",
-    "count": 4
+    "count": 1
   },
   "craftTick": 100,
   "requiredEnergy": 8000,

@@ -11,12 +11,14 @@
   "container.imi.creative_energy": "创造能源",
   "container.imi.thermal": "热力发电机",
   "container.imi.tech_tree_viewer": "科技树查看器",
-  "container.imi.grinder": "磨粉机",
+  "container.imi.grinder": "粉碎机",
 
   "item.imi.iron_powder": "铁粉",
   "item.imi.stone_powder": "石粉",
   "item.imi.gold_powder": "金粉",
   "item.imi.diamond_powder": "钻石粉",
   "item.imi.wood_powder": "木粉",
-  "item.imi.coal_powder": "煤粉"
+  "item.imi.coal_powder": "煤粉",
+
+  "jei.imi.grinder": "粉碎机"
 }

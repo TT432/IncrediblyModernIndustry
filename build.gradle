@@ -20,7 +20,7 @@ apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 group = 'dustw'
-version = '1.18.2-1'
+version = '1.18.2-2'
 
 java {
     archivesBaseName = 'imi'
