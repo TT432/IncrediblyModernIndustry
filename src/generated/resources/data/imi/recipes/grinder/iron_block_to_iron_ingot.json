@@ -7,6 +7,6 @@
     "count": 9
   },
   "craftTick": 100,
-  "requiredEnergy": 1000,
+  "requiredEnergy": 8000,
   "type": "imi:grinder"
 }

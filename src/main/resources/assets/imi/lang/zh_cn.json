@@ -1,0 +1,15 @@
+{
+  "itemGroup.imi": "摩登工业",
+
+  "block.imi.base_chest": "基础箱子",
+  "block.imi.creative_energy": "创造能源",
+  "block.imi.thermal": "热力发电机",
+  "block.imi.tech_tree_viewer": "科技树查看器",
+  "block.imi.grinder": "磨粉机",
+
+  "container.imi.base_chest": "基础箱子",
+  "container.imi.creative_energy": "创造能源",
+  "container.imi.thermal": "热力发电机",
+  "container.imi.tech_tree_viewer": "科技树查看器",
+  "container.imi.grinder": "磨粉机"
+}

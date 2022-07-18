@@ -30,6 +30,8 @@ public class ModItemModels extends ItemModelProvider {
         block(ModBlocks.THERMAL);
         block(ModBlocks.TECH_TREE_VIEWER);
         block(ModBlocks.BASE_CHEST);
+        block(ModBlocks.GRINDER);
+        block(ModBlocks.CREATIVE_ENERGY);
     }
 
     void block(RegistryObject<? extends Block> block) {

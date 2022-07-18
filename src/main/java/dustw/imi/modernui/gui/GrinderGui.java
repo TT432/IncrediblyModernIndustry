@@ -63,6 +63,7 @@ public class GrinderGui extends ModFragment {
         ProgressDrawable background1 = new ProgressDrawable(progressData, menu.blockEntity.getMaxCraftTick().get());
         menu.blockEntity.setCraftTickChangedListener(() -> {
             int currentProgress = menu.blockEntity.getMaxCraftTick().get() - menu.blockEntity.getCraftTick().get();
+            background1.setMax(menu.blockEntity.getMaxCraftTick().get());
             progressData.postValue(currentProgress);
             Core.getUiHandlerAsync().post(progress::invalidate);
         });

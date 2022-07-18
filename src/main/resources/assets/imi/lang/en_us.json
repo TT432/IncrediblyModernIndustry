@@ -1,0 +1,15 @@
+{
+  "itemGroup.imi": "Incredibly Modern Industry",
+
+  "block.imi.base_chest": "Base Chest",
+  "block.imi.creative_energy": "Creative Energy",
+  "block.imi.thermal": "Thermal",
+  "block.imi.tech_tree_viewer": "Tech Tree Viewer",
+  "block.imi.grinder": "Grinder",
+
+  "container.imi.base_chest": "Base Chest",
+  "container.imi.creative_energy": "Creative Energy",
+  "container.imi.thermal": "Thermal",
+  "container.imi.tech_tree_viewer": "Tech Tree Viewer",
+  "container.imi.grinder": "Grinder"
+}

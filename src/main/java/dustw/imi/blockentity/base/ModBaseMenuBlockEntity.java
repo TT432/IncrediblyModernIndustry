@@ -24,6 +24,6 @@ public abstract class ModBaseMenuBlockEntity extends ModBaseBlockEntity implemen
     String name;
 
     protected String defaultName() {
-        return name == null ? name = "container." + getType().getRegistryName().toString().replace("/", ".") : name;
+        return name == null ? name = "container." + getType().getRegistryName().toString().replace(":", ".") : name;
     }
 }

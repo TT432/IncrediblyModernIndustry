@@ -26,14 +26,16 @@ public class ModBlockStates extends BlockStateProvider {
         //simpleBlock(AvarusBlocks.BLUE_DIRT.get());
         //simpleBlock(AvarusBlocks.YELLOW_DIRT.get());
 
-        simple(ModBlocks.BASE_CHEST);
-        simple(ModBlocks.TECH_TREE_VIEWER);
-        simple(ModBlocks.THERMAL);
+        simpleSideBlock(ModBlocks.BASE_CHEST);
+        simpleSideBlock(ModBlocks.TECH_TREE_VIEWER);
+        simpleSideBlock(ModBlocks.THERMAL);
+        simpleSideBlock(ModBlocks.CREATIVE_ENERGY);
+        simpleSideBlock(ModBlocks.GRINDER);
     }
 
     public static final ResourceLocation TOP = new ResourceLocation(DataGenerators.MOD_ID, "block/top");
 
-    void simple(RegistryObject<? extends Block> block) {
+    void simpleSideBlock(RegistryObject<? extends Block> block) {
         String name = block.getId().getPath();
         ResourceLocation texture = blockTexture(block.get());
         BlockModelBuilder model = models().cubeBottomTop(name, texture, TOP, TOP);
