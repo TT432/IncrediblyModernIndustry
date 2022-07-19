@@ -1,6 +1,7 @@
 package dustw.imi.blockentity.base;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -10,6 +11,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.EnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import tt432.millennium.sync.SyncDataManager;
 
@@ -103,4 +106,19 @@ public abstract class ModBaseBlockEntity extends BlockEntity {
     }
 
     public abstract List<ItemStack> getDrops();
+
+    protected final void energyOutputTick(EnergyStorage selfStorage) {
+        if (getLevel() != null && !getLevel().isClientSide) {
+            for (Direction value : Direction.values()) {
+                BlockEntity blockEntity = getLevel().getBlockEntity(getBlockPos().offset(value.getNormal()));
+
+                if (blockEntity != null) {
+                    blockEntity.getCapability(CapabilityEnergy.ENERGY, value.getOpposite()).ifPresent(energy -> {
+                        int max = energy.receiveEnergy(Integer.MAX_VALUE, true);
+                        energy.receiveEnergy(selfStorage.extractEnergy(max, false), false);
+                    });
+                }
+            }
+        }
+    }
 }

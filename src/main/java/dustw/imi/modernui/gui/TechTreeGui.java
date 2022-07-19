@@ -85,20 +85,29 @@ public class TechTreeGui extends ModFragment {
 
                 {
                     HorizontalScrollView needItems = new HorizontalScrollView();
+                    needItems.setPadding(dp(5), dp(5), dp(5), dp(5));
+                    LinearLayout inner = new LinearLayout();
 
                     int size = dp(38);
 
                     selectChanged.add((old, newer) -> {
                         if (newer != null) {
+                            inner.removeAllViews();
+
                             newer.getRequired().forEach((ingredient, integer) -> {
                                 ItemStack item = ingredient.getItems()[0].copy();
                                 item.setCount(integer);
                                 ItemView child = new ItemView(item);
                                 child.setBackground(new BackgroundDrawable());
-                                needItems.addView(child, new FrameLayout.LayoutParams(size, size));
+                                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
+                                params.setMargins(0, 0, dp(5), 0);
+                                inner.addView(child, params);
                             });
                         }
                     });
+
+                    needItems.addView(inner, new FrameLayout.LayoutParams(size, WRAP_CONTENT, Gravity.LEFT));
+                    makePlane.addView(needItems, new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT));
                 }
 
                 {

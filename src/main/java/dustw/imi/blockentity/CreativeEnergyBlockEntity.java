@@ -5,7 +5,6 @@ import dustw.imi.blockentity.reg.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -35,17 +34,7 @@ public class CreativeEnergyBlockEntity extends ModBaseBlockEntity {
     protected void tick() {
         super.tick();
 
-        if (getLevel() != null && !getLevel().isClientSide) {
-            for (Direction value : Direction.values()) {
-                BlockEntity blockEntity = getLevel().getBlockEntity(getBlockPos().offset(value.getNormal()));
-
-                if (blockEntity != null) {
-                    blockEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(energy -> {
-                        energy.receiveEnergy(Integer.MAX_VALUE, false);
-                    });
-                }
-            }
-        }
+        energyOutputTick(CAP.resolve().get());
     }
 
     @Override

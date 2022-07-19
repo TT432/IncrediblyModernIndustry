@@ -72,6 +72,8 @@ public class ThermalBlockEntity extends ModBaseMenuBlockEntity {
 
                 setChanged();
             }
+
+            energyOutputTick(energyStorage);
         }
         else {
             onBurnTickChanged();
