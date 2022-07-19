@@ -22,5 +22,11 @@
   "item.imi.wood_powder": "木粉",
   "item.imi.coal_powder": "煤粉",
 
-  "jei.imi.grinder": "粉碎机"
+  "jei.imi.grinder": "粉碎机",
+
+  "imi.tech.stones": "石头",
+  "imi.tech.stones.description": "从石头开始",
+
+  "imi.tech.iron_ingots": "铁锭",
+  "imi.tech.iron_ingots.description": "来硬的···64倍"
 }

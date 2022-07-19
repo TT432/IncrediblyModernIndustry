@@ -1,0 +1,15 @@
+{
+  "techLevel": 0,
+  "prerequisite": "imi:stones",
+  "identifier": "imi:iron_ingots",
+  "name": "imi.tech.iron_ingots",
+  "description": "imi.tech.iron_ingots.description",
+  "required": [
+    [
+      {
+        "item": "minecraft:iron_ingot"
+      },
+      64
+    ]
+  ]
+}

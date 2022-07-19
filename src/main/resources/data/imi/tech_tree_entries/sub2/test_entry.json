@@ -1,8 +1,0 @@
-{
-  "techLevel": "0",
-  "identifier": "imi:test21",
-  "name": "Test21",
-  "prerequisite": "imi:test18",
-  "description": "Test Description",
-  "iconPath": "item/iron_sword.png"
-}

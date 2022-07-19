@@ -19,6 +19,7 @@ public class DataGenerators {
         if (event.includeServer()) {
             generator.addProvider(new ModRecipes(generator));
             generator.addProvider(new ModLootTables(generator));
+            generator.addProvider(new TechTreeEntryProvider(generator));
             //TutBlockTags blockTags = new TutBlockTags(generator, event.getExistingFileHelper());
             //generator.addProvider(blockTags);
             //generator.addProvider(new TutItemTags(generator, blockTags, event.getExistingFileHelper()));

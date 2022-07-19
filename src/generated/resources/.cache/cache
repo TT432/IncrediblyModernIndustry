@@ -35,6 +35,8 @@ b261d232fd7c861e8c27a10cb19982e8b9b8104a data/imi/recipes/grinder/iron_powder.js
 81a167fdaf31e17bf3e195e0ee11c936d6b9efeb data/imi/recipes/grinder/iron_powder_2.json
 5c04ba4317157eae6fdbd8521ec7e81dd58db5c1 data/imi/recipes/grinder/stone_powder.json
 e992f51a3e4c379c297a6c8515227fe222d56a6c data/imi/recipes/grinder/wood_powder.json
+6b9fe6fb2feca8d6128789e4d5066384abb634c0 data/imi/tech_tree_entries/base/iron_ingots.json
+955640ffab455aa469f917d885416133bfc0ba9f data/imi/tech_tree_entries/base/stones.json
 7a3cec7513f6e73af5a56b7f6ad7114ab753e4ad data/minecraft/advancements/recipes/misc/gold_ingot.json
 3373acc427dc6c08d21a822f1dfb14a892e10ad4 data/minecraft/advancements/recipes/misc/iron_ingot.json
 1a5a760e02277666c4b2a998c6acaa0d15199b81 data/minecraft/recipes/gold_ingot.json

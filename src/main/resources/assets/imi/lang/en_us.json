@@ -22,5 +22,11 @@
   "item.imi.wood_powder": "Wood Powder",
   "item.imi.coal_powder": "Coal Powder",
 
-  "jei.imi.grinder": "Grinder"
+  "jei.imi.grinder": "Grinder",
+
+  "imi.tech.stones": "Stones",
+  "imi.tech.stones.description": "Start With Stone",
+
+  "imi.tech.iron_ingots": "Iron Ingots",
+  "imi.tech.iron_ingots.description": "Acquire Hardware...64x"
 }

@@ -1,8 +1,0 @@
-{
-  "techLevel": "0",
-  "identifier": "imi:test14",
-  "name": "Test4",
-  "prerequisite": "imi:test3",
-  "description": "Test Description",
-  "iconPath": "item/apple.png"
-}

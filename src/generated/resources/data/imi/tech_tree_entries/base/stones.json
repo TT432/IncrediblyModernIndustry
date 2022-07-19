@@ -1,0 +1,14 @@
+{
+  "techLevel": 0,
+  "identifier": "imi:stones",
+  "name": "imi.tech.stones",
+  "description": "imi.tech.stones.description",
+  "required": [
+    [
+      {
+        "tag": "forge:stone"
+      },
+      64
+    ]
+  ]
+}

@@ -1,16 +1,21 @@
 package dustw.imi.datapack.techtree;
 
+import lombok.Builder;
 import lombok.Data;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 表示科技树一个节点的数据
  * @author DustW
  **/
 @Data
+@Builder
 public class TechEntry {
     /** 解锁所需的科技等级 */
     int techLevel;
@@ -26,6 +31,8 @@ public class TechEntry {
     String name;
     /** 描述（将使用 TranslatableComponent） */
     String description;
+
+    @Builder.Default Map<Ingredient, Integer> required = new HashMap<>();
 
     transient TranslatableComponent nameComponent;
     transient TranslatableComponent descriptionComponent;

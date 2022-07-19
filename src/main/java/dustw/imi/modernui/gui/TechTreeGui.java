@@ -1,22 +1,29 @@
 package dustw.imi.modernui.gui;
 
 import com.mojang.blaze3d.platform.Window;
+import dustw.imi.datapack.techtree.TechEntry;
+import dustw.imi.datapack.techtree.TechTreeManager;
 import dustw.imi.modernui.component.button.TechEntryButton;
 import dustw.imi.modernui.component.drawable.BackgroundDrawable;
 import dustw.imi.modernui.component.view.HorizontalScrollView;
+import dustw.imi.modernui.component.view.ItemView;
 import dustw.imi.modernui.gui.base.ModFragment;
-import dustw.imi.datapack.techtree.TechEntry;
-import dustw.imi.datapack.techtree.TechTreeManager;
 import icyllis.modernui.graphics.drawable.ImageDrawable;
 import icyllis.modernui.util.DataSet;
 import icyllis.modernui.view.Gravity;
 import icyllis.modernui.view.View;
 import icyllis.modernui.view.ViewGroup;
-import icyllis.modernui.widget.*;
+import icyllis.modernui.widget.FrameLayout;
+import icyllis.modernui.widget.LinearLayout;
+import icyllis.modernui.widget.ScrollView;
+import icyllis.modernui.widget.TextView;
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 import static icyllis.modernui.view.View.dp;
 import static icyllis.modernui.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -30,6 +37,9 @@ public class TechTreeGui extends ModFragment {
     TechEntry select;
     TextView name;
     TextView description;
+
+    /** 旧 - 新 */
+    List<BiConsumer<TechEntry, TechEntry>> selectChanged = new ArrayList<>();
 
     @Nullable
     @Override
@@ -69,6 +79,37 @@ public class TechTreeGui extends ModFragment {
 
             {
                 // TODO 正在做的研究
+                LinearLayout makePlane = new LinearLayout();
+                makePlane.setOrientation(LinearLayout.VERTICAL);
+                makePlane.setPadding(dp(5), dp(5), dp(5), dp(5));
+
+                {
+                    HorizontalScrollView needItems = new HorizontalScrollView();
+
+                    int size = dp(38);
+
+                    selectChanged.add((old, newer) -> {
+                        if (newer != null) {
+                            newer.getRequired().forEach((ingredient, integer) -> {
+                                ItemStack item = ingredient.getItems()[0].copy();
+                                item.setCount(integer);
+                                ItemView child = new ItemView(item);
+                                child.setBackground(new BackgroundDrawable());
+                                needItems.addView(child, new FrameLayout.LayoutParams(size, size));
+                            });
+                        }
+                    });
+                }
+
+                {
+                    // TODO 确认按钮
+                }
+
+                makePlane.setBackground(new BackgroundDrawable());
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
+                params.setMargins(0, 0, 0, dp(5));
+                left.addView(makePlane, params);
             }
 
             {
@@ -119,6 +160,8 @@ public class TechTreeGui extends ModFragment {
 
         button.setSelect(true);
         button.invalidate();
+
+        selectChanged.forEach(a -> a.accept(select, value));
 
         select = value;
 
