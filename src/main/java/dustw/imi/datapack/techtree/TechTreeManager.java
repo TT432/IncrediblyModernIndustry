@@ -31,7 +31,7 @@ public class TechTreeManager extends SimpleJsonResourceReloadListener implements
     private static final TechTreeManager INSTANCE = new TechTreeManager();
 
     public static final Codec<TechTreeManager> CODEC = RecordCodecBuilder.create(instance ->
-            instance.group(Codec.STRING.fieldOf("name").forGetter(TechTreeManager::save))
+            instance.group(Codec.STRING.fieldOf("data").forGetter(TechTreeManager::save))
                     .apply(instance, TechTreeManager::load));
 
     public TechTreeManager() {

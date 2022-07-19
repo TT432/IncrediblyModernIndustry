@@ -7,7 +7,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.EnergyStorage;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tt432.millennium.sync.SyncDataManager;
 
 import java.util.ArrayList;
@@ -46,5 +51,23 @@ public class CreativeEnergyBlockEntity extends ModBaseBlockEntity {
     @Override
     public List<ItemStack> getDrops() {
         return new ArrayList<>();
+    }
+
+    static final LazyOptional<EnergyStorage> CAP = LazyOptional.of(() -> new EnergyStorage(Integer.MAX_VALUE) {
+        @Override
+        public int receiveEnergy(int maxReceive, boolean simulate) {
+            return maxReceive;
+        }
+
+        @Override
+        public int extractEnergy(int maxExtract, boolean simulate) {
+            return maxExtract;
+        }
+    });
+
+    @NotNull
+    @Override
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        return CapabilityEnergy.ENERGY.orEmpty(cap, CAP.cast());
     }
 }
