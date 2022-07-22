@@ -11,6 +11,7 @@ import dustw.imi.modernui.gui.base.ModFragment;
 import icyllis.modernui.graphics.drawable.ImageDrawable;
 import icyllis.modernui.util.DataSet;
 import icyllis.modernui.view.Gravity;
+import icyllis.modernui.view.MotionEvent;
 import icyllis.modernui.view.View;
 import icyllis.modernui.view.ViewGroup;
 import icyllis.modernui.widget.FrameLayout;
@@ -19,6 +20,7 @@ import icyllis.modernui.widget.ScrollView;
 import icyllis.modernui.widget.TextView;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -131,7 +133,17 @@ public class TechTreeGui extends ModFragment {
         }
 
         {
-            ScrollView right = new ScrollView();
+            ScrollView right = new ScrollView() {
+                @Override
+                public boolean onTouchEvent(@NotNull MotionEvent ev) {
+                    return super.onTouchEvent(ev) | getChildAt(0).onTouchEvent(ev);
+                }
+
+                @Override
+                public boolean onInterceptTouchEvent(@NotNull MotionEvent ev) {
+                    return super.onInterceptTouchEvent(ev) | ((HorizontalScrollView) getChildAt(0)).onInterceptTouchEvent(ev);
+                }
+            };
             right.setVerticalScrollBarEnabled(false);
             right.setPadding(dp(10), dp(10), dp(10), dp(10));
 
@@ -147,7 +159,7 @@ public class TechTreeGui extends ModFragment {
 
             in.addView(skillTree, new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
 
-            right.addView(in, new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
+            right.addView(in, new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.CENTER_HORIZONTAL));
             right.setBackground(new BackgroundDrawable());
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) (width * 0.7 - dp(10 + 10 + 7)), height - dp(20));

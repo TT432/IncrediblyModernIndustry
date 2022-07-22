@@ -18,7 +18,7 @@ public class ModRecipeTypes {
     public static final RegistryObject<RecipeType<GrinderRecipe>> GRINDER = register("grinder");
 
     static <C extends Container, R extends BaseRecipe<C>> RegistryObject<RecipeType<R>> register(String name) {
-        return REGISTER.register("grinder", () -> new RecipeType<>() {
+        return REGISTER.register(name, () -> new RecipeType<>() {
             @Override
             public String toString() {
                 return name;
